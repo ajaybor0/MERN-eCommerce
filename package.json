@@ -1,0 +1,26 @@
+{
+  "name": "mern-ecommorce",
+  "version": "1.0.0",
+  "description": "eCommerce web application built with MERN Stack.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder.js",
+    "data:destroy": "node backend/seeder.js -d"
+  },
+  "author": "Ajay Boro",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
