@@ -8,7 +8,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <main className='py-3'>
+      <main className='py-3 position-relative'>
         <Container>
           <Outlet />
         </Container>

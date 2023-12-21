@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 
 const Loader = () => {
   return (
-    <div className='d-flex justify-content-center align-items-center  '>
+    <div className='position-absolute top-50 start-50 translate-middle'>
       <Spinner
         animation='border'
         role='status'
