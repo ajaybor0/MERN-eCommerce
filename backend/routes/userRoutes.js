@@ -13,13 +13,37 @@ import {
 } from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
+// @desc     Register a new user
+// @method   POST
+// @endpoint /api/users
+// @access   Public
 router.route('/').post(registerUser).get(protect, admin, getUsers);
+
+// @desc     Login user
+// @method   POST
+// @endpoint /api/users/login
+// @access   Public
 router.post('/login', loginUser);
+
+// @desc     Logout user
+// @method   POST
+// @endpoint /api/users/logout
+// @access   Private
 router.post('/logout', protect, logoutUser);
+
+// @desc     Get user profile and update user profile
+// @method   GET, PUT
+// @endpoint /api/users/profile
+// @access   Private
 router
   .route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
+
+// @desc     Get, update, or delete a user by ID
+// @method   GET, PUT, DELETE
+// @endpoint /api/users/:userId
+// @access   Private/Admin
 router
   .route('/:userId')
   .get(protect, admin, getUserById)

@@ -6,15 +6,25 @@ import Product from '../models/productModel.js';
 // @access   Public
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
-    if (!products.length > 0) {
+    // Fetch all products from the database
+    const products = await Product.find();
+
+    // Check if any products were found
+    if (!products || products.length === 0) {
+      // Return a 404 response if no products are found
       return res.status(404).json({
-        message: 'Products Not Found!'
+        message: 'Products not found.'
       });
     }
-    res.status(200).json(products);
+
+    // Send a success response with the list of products
+    return res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({
+    // Log the error for debugging
+    console.error('Error fetching products:', error);
+
+    // Handle errors during product retrieval
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
@@ -27,15 +37,27 @@ const getProducts = async (req, res) => {
 const getProduct = async (req, res) => {
   const productId = req.params.productId;
   try {
+    // Fetch a single product by ID from the database
     const product = await Product.findById(productId);
+
+    // Check if the product was found
     if (!product) {
+      // Return a 404 response if the product is not found
       return res.status(404).json({
-        message: 'Product Not Found!'
+        message: 'Product not found.'
       });
     }
+
+    // Send a success response with the single product
     return res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: 'Internal Server Error' });
+    // Log the error for debugging
+    console.error('Error fetching a single product:', error);
+
+    // Handle errors during product retrieval
+    return res.status(500).json({
+      message: 'Internal Server Error'
+    });
   }
 };
 

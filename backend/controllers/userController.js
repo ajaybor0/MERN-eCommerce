@@ -17,7 +17,7 @@ const loginUser = async (req, res) => {
     // If the user does not exist, return a 404 Not Found response
     if (!user) {
       return res.status(404).json({
-        message: 'Wrong email address!'
+        message: 'Invalid email address. Please check your email and try again.'
       });
     }
 
@@ -27,7 +27,7 @@ const loginUser = async (req, res) => {
     // If the passwords do not match, return a 401 Unauthorized response
     if (!match) {
       return res.status(401).json({
-        message: 'Wrong password!'
+        message: 'Invalid password. Please check your password and try again.'
       });
     }
 
@@ -35,8 +35,8 @@ const loginUser = async (req, res) => {
     generateToken(res, user._id.toString());
 
     // Sending a success response with user information
-    res.status(200).json({
-      message: 'You are successfully logged in.',
+    return res.status(200).json({
+      message: 'Login successful.',
       userId: user._id.toString(),
       name: user.name,
       email: user.email,
@@ -47,7 +47,7 @@ const loginUser = async (req, res) => {
     console.error('Error during login:', error);
 
     // Sending an internal server error response
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
@@ -64,15 +64,17 @@ const registerUser = async (req, res) => {
 
     // Check if a user with the given email already exists in the database
     const userExists = await User.findOne({ email });
+
     // If the user with the given email already exists, send a response indicating the conflict
     if (userExists) {
       return res.status(409).json({
-        message: 'User already exists. Please enter another email.'
+        message: 'User already exists. Please choose a different email.'
       });
     }
 
     // Hashing the user's password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
+
     // Creating a new user instance
     const user = new User({
       name,
@@ -87,8 +89,8 @@ const registerUser = async (req, res) => {
     generateToken(res, user._id.toString());
 
     // Sending a success response with the registered user information
-    res.status(201).json({
-      message: 'You are successfully registered.',
+    return res.status(201).json({
+      message: 'Registration successful. Welcome!',
       userId: user._id.toString(),
       name: user.name,
       email: user.email,
@@ -97,7 +99,9 @@ const registerUser = async (req, res) => {
   } catch (error) {
     // Handling errors during the registration process
     console.error('Error registering user:', error);
-    res.status(500).json({
+
+    // Sending an internal server error response
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
@@ -109,15 +113,17 @@ const registerUser = async (req, res) => {
 // @access   Private
 const logoutUser = async (req, res) => {
   try {
-    // Clearing the JWT cookie to log the user outff
+    // Clearing the JWT cookie to log the user out
     res.clearCookie('jwt', { httpOnly: true });
+
     // Sending a success response for a successful logout
-    res.status(200).json('Logout successful');
+    return res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     // Handling errors during the logout process
     console.error('Error during logout:', error);
+
     // Sending an internal server error response
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
@@ -140,8 +146,8 @@ const getUserProfile = async (req, res) => {
     }
 
     // Send a success response with user information
-    res.status(200).json({
-      message: 'User profile',
+    return res.status(200).json({
+      message: 'User profile retrieved successfully',
       userId: user._id.toString(),
       name: user.name,
       email: user.email,
@@ -152,7 +158,7 @@ const getUserProfile = async (req, res) => {
     console.error('Error getting user profile:', error);
 
     // Send an internal server error response
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
@@ -164,15 +170,25 @@ const getUserProfile = async (req, res) => {
 // @access   Private/Admin
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({});
-    if (!users) {
+    // Retrieve all users from the database
+    const users = await User.find();
+
+    // Check if any users are found
+    if (!users || users.length === 0) {
+      // Return a 404 response if no users are found
       return res.status(404).json({
-        message: 'User Not Found!'
+        message: 'No users found.'
       });
     }
-    res.status(200).json(users);
+
+    // Send a success response with the list of users
+    return res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({
+    // Handle errors during the retrieval of users
+    console.error('Error getting users:', error);
+
+    // Send an internal server error response
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
@@ -221,7 +237,7 @@ const updateUserProfile = async (req, res) => {
     // Check if the user is found
     if (!user) {
       return res.status(404).json({
-        message: 'User Not Found!'
+        message: 'User not found. Unable to update profile.'
       });
     }
 
@@ -239,8 +255,8 @@ const updateUserProfile = async (req, res) => {
     const updatedUser = await user.save();
 
     // Send a success response with the updated user information
-    res.status(200).json({
-      message: 'User profile updated',
+    return res.status(200).json({
+      message: 'User profile updated successfully.',
       userId: updatedUser._id.toString(),
       name: updatedUser.name,
       email: updatedUser.email,
@@ -251,12 +267,11 @@ const updateUserProfile = async (req, res) => {
     console.error('Error updating user profile:', error);
 
     // Send an internal server error response
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Internal Server Error'
     });
   }
 };
-
 
 // @desc     Delete user
 // @method   DELETE
