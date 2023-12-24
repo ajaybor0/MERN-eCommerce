@@ -4,6 +4,8 @@ import App from '../App';
 import ProductPage from '../pages/ProductPage';
 import HomePage from '../pages/HomePage';
 import CartPage from '../pages/CartPage';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />
+      },
+      {
+        path: '/login',
+        element: <LoginPage />
+      },
+      {
+        path: '/register',
+        element: <RegisterPage />
       }
     ]
   }

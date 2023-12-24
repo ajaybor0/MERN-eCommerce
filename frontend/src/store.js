@@ -2,13 +2,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './slices/apiSlice';
 import cartSliceReducer from './slices/cartSlice';
+import authSliceReducer from './slices/authSlice';
 
 // Configure the Redux store
 const store = configureStore({
   // Combine reducers for different slices
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer, // API-related state reducer
-    cart: cartSliceReducer // Shopping cart state reducer
+    cart: cartSliceReducer, // Shopping cart state reducer
+    auth: authSliceReducer // Authentication state reducer
   },
 
   // Add middleware to the Redux store
