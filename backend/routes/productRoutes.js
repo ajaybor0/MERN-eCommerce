@@ -11,8 +11,8 @@ router.get('/', getProducts);
 
 // @desc     Fetch Single Product
 // @method   GET
-// @endpoint /api/products/:productId
+// @endpoint /api/products/:id
 // @access   Public
-router.get('/:productId', getProduct);
+router.get('/:id', getProduct);
 
 export default router;

@@ -22,7 +22,7 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { productId } = useParams();
+  const { id: productId } = useParams();
   const {
     data: product,
     isLoading,

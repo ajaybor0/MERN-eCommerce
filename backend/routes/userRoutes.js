@@ -42,10 +42,10 @@ router
 
 // @desc     Get, update, or delete a user by ID
 // @method   GET, PUT, DELETE
-// @endpoint /api/users/:userId
+// @endpoint /api/users/:id
 // @access   Private/Admin
 router
-  .route('/:userId')
+  .route('/:id')
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser)
   .delete(protect, admin, deleteUser);

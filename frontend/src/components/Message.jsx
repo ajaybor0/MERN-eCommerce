@@ -3,7 +3,7 @@ import { Alert } from 'react-bootstrap';
 
 const Message = ({ variant, children }) => {
   return (
-    <div className=' position-absolute top-50 start-50 translate-middle  '>
+    <div>
       <Alert variant={variant}>{children}</Alert>
     </div>
   );

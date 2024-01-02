@@ -27,7 +27,7 @@ const CartPage = () => {
   };
 
   const checkoutHandler = () => {
-    navigate('/login?redirct=/shipping');
+    navigate('/login?redirect=/shipping');
   };
 
   return (
@@ -86,7 +86,7 @@ const CartPage = () => {
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h2>
-                    Subtotal ($
+                    Subtotal (
                     {cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
                   </h2>
                   $
@@ -98,6 +98,7 @@ const CartPage = () => {
                   <Button
                     className='btn-block'
                     type='button'
+                    disabled={cartItems.length === 0}
                     onClick={checkoutHandler}
                   >
                     Proceed To Checkout

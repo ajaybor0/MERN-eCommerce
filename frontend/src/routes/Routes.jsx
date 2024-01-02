@@ -6,6 +6,11 @@ import HomePage from '../pages/HomePage';
 import CartPage from '../pages/CartPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import ShippingPage from '../pages/ShippingPage';
+import PrivateRoute from '../components/PrivateRoute';
+import Payment from '../pages/Payment';
+import PlaceOrderPage from '../pages/PlaceOrderPage';
+import OrderDetailsPage from '../pages/OrderDetailsPage';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +23,7 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: '/product/:productId',
+        path: '/product/:id',
         element: <ProductPage />
       },
       {
@@ -32,6 +37,28 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <RegisterPage />
+      },
+      {
+        path: '',
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: '/shipping',
+            element: <ShippingPage />
+          },
+          {
+            path: '/payment',
+            element: <Payment />
+          },
+          {
+            path: '/place-order',
+            element: <PlaceOrderPage />
+          },
+          {
+            path: '/order/:id',
+            element: <OrderDetailsPage />
+          }
+        ]
       }
     ]
   }

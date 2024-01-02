@@ -135,7 +135,7 @@ const getUsers = async (req, res, next) => {
 };
 // @desc     Get user
 // @method   GET
-// @endpoint /api/users/:userId
+// @endpoint /api/users/:id
 // @access   Private/Admin
 const getUserById = async (req, res) => {
   try {
@@ -149,7 +149,7 @@ const getUserById = async (req, res) => {
 
 // @desc     Update user
 // @method   PUT
-// @endpoint /api/users/:userId
+// @endpoint /api/users/:id
 // @access   Private/Admin
 const updateUser = async (req, res) => {
   try {
@@ -200,7 +200,7 @@ const updateUserProfile = async (req, res, next) => {
 
 // @desc     Delete user
 // @method   DELETE
-// @endpoint /api/users/:userId
+// @endpoint /api/users/:id
 // @access   Private/Admin
 const deleteUser = async (req, res) => {
   try {

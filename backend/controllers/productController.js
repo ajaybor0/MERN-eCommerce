@@ -21,10 +21,10 @@ const getProducts = async (req, res, next) => {
 
 // @desc     Fetch Single Product
 // @method   GET
-// @endpoint /api/products/:productId
+// @endpoint /api/products/:id
 // @access   Public
 const getProduct = async (req, res, next) => {
-  const productId = req.params.productId;
+  const { id: productId } = req.params;
   try {
     const product = await Product.findById(productId);
 

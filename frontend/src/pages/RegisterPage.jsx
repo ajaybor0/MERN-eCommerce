@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import FormContainer from '../components/FormContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import FormContainer from '../components/FormContainer';
+import Loader from '../components/Loader';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -16,7 +17,8 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [register] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
+
   const { userInfo } = useSelector(state => state.auth);
 
   const { search } = useLocation();
@@ -89,6 +91,7 @@ const RegisterPage = () => {
         <Button className='mb-3' variant='primary' type='submit'>
           Register
         </Button>
+        {isLoading && <Loader />}
       </Form>
       <Row>
         <Col>

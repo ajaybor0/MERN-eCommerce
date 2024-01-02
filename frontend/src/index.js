@@ -7,11 +7,15 @@ import reportWebVitals from './reportWebVitals';
 import Routes from './routes/Routes';
 import store from './store';
 import { Provider } from 'react-redux';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Routes />
+      <PayPalScriptProvider deferLoading={true}>
+        <Routes />
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );

@@ -15,10 +15,7 @@ const store = configureStore({
 
   // Add middleware to the Redux store
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(apiSlice.middleware), // Add API middleware
-
-  // Enable Redux DevTools extension for debugging
-  devTools: true
+    getDefaultMiddleware().concat(apiSlice.middleware) // Add API middleware
 });
 
 // Export the configured Redux store for use in the application

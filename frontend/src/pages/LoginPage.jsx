@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import FormContainer from '../components/FormContainer';
-import Loader from '../components/Loader';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import FormContainer from '../components/FormContainer';
+import Loader from '../components/Loader';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +15,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
+
   const { userInfo } = useSelector(state => state.auth);
 
   const { search } = useLocation();
@@ -24,7 +25,6 @@ const LoginPage = () => {
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
-      
     }
   }, [userInfo, redirect, navigate]);
 
