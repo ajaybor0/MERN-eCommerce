@@ -8,9 +8,10 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ShippingPage from '../pages/ShippingPage';
 import PrivateRoute from '../components/PrivateRoute';
-import Payment from '../pages/Payment';
+import PaymentPage from '../pages/PaymentPage';
 import PlaceOrderPage from '../pages/PlaceOrderPage';
 import OrderDetailsPage from '../pages/OrderDetailsPage';
+import ProfilePage from '../pages/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
           },
           {
             path: '/payment',
-            element: <Payment />
+            element: <PaymentPage />
           },
           {
             path: '/place-order',
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
           {
             path: '/order/:id',
             element: <OrderDetailsPage />
+          },
+          {
+            path: '/profile',
+            element: <ProfilePage />
           }
         ]
       }

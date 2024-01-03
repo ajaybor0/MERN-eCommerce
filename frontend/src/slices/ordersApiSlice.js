@@ -15,6 +15,11 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         url: `${ORDERS_URL}/${orderId}`
       })
     }),
+    getMyOrders: builder.query({
+      query: () => ({
+        url: `${ORDERS_URL}/my-orders`
+      })
+    }),
     payOrder: builder.mutation({
       query: ({ orderId, details }) => ({
         url: `${ORDERS_URL}/${orderId}/pay`,
@@ -34,5 +39,6 @@ export const {
   useGetOrderDetailsQuery,
   useCreateOrderMutation,
   usePayOrderMutation,
-  useGetRazorpayApiKeyQuery
+  useGetRazorpayApiKeyQuery,
+  useGetMyOrdersQuery
 } = ordersApiSlice;

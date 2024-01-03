@@ -13,6 +13,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
+import { FaIndianRupeeSign } from 'react-icons/fa6';
 
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
@@ -64,7 +65,10 @@ const ProductPage = () => {
                     text={`${product.numReviews} reviews`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                <ListGroup.Item>
+                  Price: <FaIndianRupeeSign />
+                  {product.price}
+                </ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
                 </ListGroup.Item>
@@ -77,7 +81,8 @@ const ProductPage = () => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>${product.price}</strong>
+                        <FaIndianRupeeSign />
+                        <strong>{product.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>

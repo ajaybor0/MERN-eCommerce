@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +29,10 @@ const LoginPage = () => {
       navigate(redirect);
     }
   }, [userInfo, redirect, navigate]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const submitHandler = async e => {
     e.preventDefault();
@@ -54,12 +60,21 @@ const LoginPage = () => {
         </Form.Group>
         <Form.Group className='mb-3' controlId='password'>
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            value={password}
-            placeholder='Enter password'
-            onChange={e => setPassword(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              placeholder='Enter password'
+              onChange={e => setPassword(e.target.value)}
+            />
+            <InputGroup.Text
+              onClick={togglePasswordVisibility}
+              id='togglePasswordVisibility'
+              style={{ cursor: 'pointer' }}
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </InputGroup.Text>
+          </InputGroup>
         </Form.Group>
         <Button
           className='mb-3'

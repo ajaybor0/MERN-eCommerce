@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Order from '../models/orderModel.js';
 
 // @desc     Create new order
@@ -33,8 +34,7 @@ const addOrderItems = async (req, res, next) => {
       user: req.user._id,
       orderItems: cartItems.map(item => ({
         ...item,
-        product: item._id,
-        _id: undefined
+        product: item._id
       })),
       shippingAddress,
       paymentMethod,
@@ -74,7 +74,7 @@ const getMyOrders = async (req, res, next) => {
 // @desc     Get order by ID
 // @method   GET
 // @endpoint /api/v1/orders/:id
-// @access   Private/Admin
+// @access   Private
 const getOrderById = async (req, res, next) => {
   try {
     const { id: orderId } = req.params;
@@ -99,7 +99,6 @@ const getOrderById = async (req, res, next) => {
 const updateOrderToPaid = async (req, res) => {
   try {
     const { id: orderId } = req.params;
-
     const order = await Order.findById(orderId);
 
     if (!order) {

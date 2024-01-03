@@ -7,6 +7,7 @@ import { clearCartItems } from '../slices/cartSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { FaIndianRupeeSign } from 'react-icons/fa6';
 
 const PlaceOrderPage = () => {
   const {
@@ -79,7 +80,9 @@ const PlaceOrderPage = () => {
                         <Link to={`/product/${item._id}`}>{item.name}</Link>
                       </Col>
                       <Col md={4}>
-                        {item.qty} x ${item.price} = ${item.qty * item.price}
+                        {item.qty} x <FaIndianRupeeSign />
+                        {item.price} = <FaIndianRupeeSign />
+                        {item.qty * item.price}
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -97,25 +100,37 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items:</Col>
-                  <Col>${itemsPrice}</Col>
+                  <Col>
+                    <FaIndianRupeeSign />
+                    {itemsPrice}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping:</Col>
-                  <Col>${shippingPrice}</Col>
+                  <Col>
+                    <FaIndianRupeeSign />
+                    {shippingPrice}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax:</Col>
-                  <Col>${taxPrice}</Col>
+                  <Col>
+                    <FaIndianRupeeSign />
+                    {taxPrice}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total:</Col>
-                  <Col>${totalPrice}</Col>
+                  <Col>
+                    <FaIndianRupeeSign />
+                    {totalPrice}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

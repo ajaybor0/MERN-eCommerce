@@ -9,13 +9,15 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import { protect, admin } from './middleware/authMiddleware.js';
-
+import cors from 'cors';
 const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
 connectDB();
 
 const app = express();
+// cors middleware
+app.use(cors());
 //cookie parser middleware
 app.use(cookieParser());
 //application/json parser middleware
@@ -56,7 +58,7 @@ app.post('/api/v1/razorpay/order/validate', protect, (req, res) => {
     .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
     .update(`${razorpay_order_id}|${razorpay_payment_id}`)
     .digest('hex');
-  console.log(generatedSignature, razorpay_signature);
+  // console.log(generatedSignature, razorpay_signature);
 
   if (generatedSignature !== razorpay_signature) {
     res.statusCode = 400;

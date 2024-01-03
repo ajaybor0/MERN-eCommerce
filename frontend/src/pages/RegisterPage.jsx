@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 
@@ -13,6 +15,8 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,6 +34,13 @@ const RegisterPage = () => {
       navigate(redirect);
     }
   }, [userInfo, redirect, navigate]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmShowPassword(!showConfirmPassword);
+  };
 
   const submitHandler = async e => {
     e.preventDefault();
@@ -72,21 +83,39 @@ const RegisterPage = () => {
         </Form.Group>
         <Form.Group className='mb-3' controlId='password'>
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            value={password}
-            type='password'
-            placeholder='Enter password'
-            onChange={e => setPassword(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              placeholder='Enter password'
+              onChange={e => setPassword(e.target.value)}
+            />
+            <InputGroup.Text
+              onClick={togglePasswordVisibility}
+              id='togglePasswordVisibility'
+              style={{ cursor: 'pointer' }}
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </InputGroup.Text>
+          </InputGroup>
         </Form.Group>
         <Form.Group className='mb-3' controlId='confirmPassword'>
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            value={confirmPassword}
-            type='password'
-            placeholder='Confirm password'
-            onChange={e => setConfirmPassword(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type={showConfirmPassword ? 'text' : 'password'}
+              value={confirmPassword}
+              placeholder='Confirm password'
+              onChange={e => setConfirmPassword(e.target.value)}
+            />
+            <InputGroup.Text
+              onClick={toggleConfirmPasswordVisibility}
+              id='toggleConfirmPasswordVisibility'
+              style={{ cursor: 'pointer' }}
+            >
+              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+            </InputGroup.Text>
+          </InputGroup>
         </Form.Group>
         <Button className='mb-3' variant='primary' type='submit'>
           Register
