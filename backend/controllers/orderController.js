@@ -129,16 +129,22 @@ const updateOrderToPaid = async (req, res) => {
 // @access   Private/Admin
 const updateOrderToDeliver = async (req, res) => {
   try {
-    return res.status(200).json({
-      message: 'Order delivered successfully.'
-    });
-  } catch (error) {
-    console.error('Error order delivery:', error);
+    const { id: orderId } = req.params;
+    const order = await Order.findById(orderId);
 
-    // Handle errors during product retrieval
-    return res.status(500).json({
-      message: 'Internal Server Error'
-    });
+    if (!order) {
+      res.statusCode = 404;
+      throw new Error('Order not found!');
+    }
+
+    order.isDelivered = true;
+    order.deliveredAt = new Date();
+
+    const updatedDeliver = await order.save();
+
+    res.status(200).json(updatedDeliver);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -148,7 +154,7 @@ const updateOrderToDeliver = async (req, res) => {
 // @access   Private/Admin
 const getOrders = async (req, res, next) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().populate('user', 'id name');
 
     if (!orders || orders.length === 0) {
       res.statusCode = 404;

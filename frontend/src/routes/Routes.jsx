@@ -12,6 +12,11 @@ import PaymentPage from '../pages/PaymentPage';
 import PlaceOrderPage from '../pages/PlaceOrderPage';
 import OrderDetailsPage from '../pages/OrderDetailsPage';
 import ProfilePage from '../pages/ProfilePage';
+import AdminRoute from '../components/AdminRoute';
+import OrderListPage from '../pages/admin/OrderListPage';
+import ProductListPage from '../pages/admin/ProductListPage';
+import UserListPage from '../pages/admin/UserListPage';
+import CreateProductPage from '../pages/admin/CreateProductPage';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +67,28 @@ const router = createBrowserRouter([
           {
             path: '/profile',
             element: <ProfilePage />
+          }
+        ]
+      },
+      {
+        path: '',
+        element: <AdminRoute />,
+        children: [
+          {
+            path: '/admin/order-list',
+            element: <OrderListPage />
+          },
+          {
+            path: '/admin/product-list',
+            element: <ProductListPage />
+          },
+          {
+            path: '/admin/user-list',
+            element: <UserListPage />
+          },
+          {
+            path: '/admin/product/create',
+            element: <CreateProductPage />
           }
         ]
       }

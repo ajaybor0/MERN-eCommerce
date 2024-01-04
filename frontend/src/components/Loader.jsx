@@ -1,16 +1,18 @@
 import React from 'react';
 
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Modal } from 'react-bootstrap';
 
 const Loader = () => {
   return (
-    <div className='position-absolute top-50 start-50 translate-middle'>
-      <Spinner
-        animation='border'
-        role='status'
-        style={{ width: '100px', height: '100px' }}
-      />
-    </div>
+    <Modal.Dialog className=' position-absolute top-50 start-50 translate-middle '>
+      <Modal.Body>
+        <Spinner
+          animation='border'
+          role='status'
+          style={{ width: '100px', height: '100px' }}
+        />
+      </Modal.Body>
+    </Modal.Dialog>
   );
 };
 

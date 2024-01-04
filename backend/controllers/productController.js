@@ -24,8 +24,8 @@ const getProducts = async (req, res, next) => {
 // @endpoint /api/products/:id
 // @access   Public
 const getProduct = async (req, res, next) => {
-  const { id: productId } = req.params;
   try {
+    const { id: productId } = req.params;
     const product = await Product.findById(productId);
 
     if (!product) {
@@ -39,4 +39,51 @@ const getProduct = async (req, res, next) => {
   }
 };
 
-export { getProducts, getProduct };
+// @desc     Create product
+// @method   POST
+// @endpoint /api/products
+// @access   Private/Admin
+const createProduct = async (req, res, next) => {
+  try {
+    const { name, image, description, brand, category, price, countInStock } =
+      req.body;
+    console.log(req.file);
+    const product = new Product({
+      user: req.user._id,
+      name,
+      image,
+      description,
+      brand,
+      category,
+      price,
+      countInStock
+    });
+    const createdProduct = await product.save();
+
+    res.status(200).json({ message: 'Product created', createdProduct });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Delete product
+// @method   DELETE
+// @endpoint /api/products/:id
+// @access   Public
+const deleteProduct = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      res.statusCode = 404;
+      throw new Error('Product not found!');
+    }
+    await Product.deleteOne({ _id: product._id });
+
+    res.status(200).json({ message: 'Product deleted' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getProducts, getProduct, createProduct, deleteProduct };

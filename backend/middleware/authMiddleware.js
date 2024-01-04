@@ -28,9 +28,7 @@ const protect = async (req, res, next) => {
 
 // Middleware to check if the user is an admin.
 const admin = (req, res, next) => {
-  const user = req.user;
-
-  if (!user || !user.isAdmin) {
+  if (!req.user || !req.user.isAdmin) {
     res.statusCode = 401;
     throw new Error('Authorization failed: Not authorized as an admin.');
   }

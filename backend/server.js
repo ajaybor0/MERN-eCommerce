@@ -1,15 +1,18 @@
+import path from 'path';
+import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
-import 'dotenv/config';
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
-import { protect, admin } from './middleware/authMiddleware.js';
 import cors from 'cors';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import { protect, admin } from './middleware/authMiddleware.js';
+
 const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
@@ -25,9 +28,19 @@ app.use(express.json());
 //application/x-www-form-urlencoded parser middleware
 app.use(express.urlencoded({ extended: true }));
 
+const __dirname = path.resolve(); // Set {__dirname} to current working directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
+
+app.get('/api/v1/config/razorpay', (req, res) =>
+  res.send({
+    razorpayKeyId: process.env.RAZORPAY_KEY_ID,
+    razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET
+  })
+);
 
 app.post('/api/v1/razorpay/order', protect, async (req, res, next) => {
   try {
@@ -75,13 +88,7 @@ app.post('/api/v1/razorpay/order/validate', protect, (req, res) => {
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/orders', orderRoutes);
-
-app.get('/api/v1/config/razorpay', (req, res) =>
-  res.send({
-    razorpayKeyId: process.env.RAZORPAY_KEY_ID,
-    razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET
-  })
-);
+app.use('/api/v1/upload', uploadRoutes);
 //-------------------------------------
 app.use(notFound);
 app.use(errorHandler);

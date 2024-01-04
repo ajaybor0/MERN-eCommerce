@@ -5,6 +5,7 @@ import { Row, Col, ListGroup, Button, Image, Card } from 'react-bootstrap';
 import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
+  useUpdateDeliverMutation,
   useGetRazorpayApiKeyQuery
 } from '../slices/ordersApiSlice';
 import { useSelector } from 'react-redux';
@@ -17,7 +18,7 @@ import axios from 'axios';
 // import { RAZORPAY_URL } from '../constants';
 const OrderDetailsPage = () => {
   const { id: orderId } = useParams();
-  console.log(useGetOrderDetailsQuery());
+  // console.log(useGetOrderDetailsQuery());
   const {
     data: order,
     refetch,
@@ -27,7 +28,8 @@ const OrderDetailsPage = () => {
   } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder] = usePayOrderMutation();
-  console.log(usePayOrderMutation());
+  const [updateDeliver] = useUpdateDeliverMutation();
+  console.log(useUpdateDeliverMutation());
 
   // const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const { userInfo } = useSelector(state => state.auth);
@@ -130,14 +132,18 @@ const OrderDetailsPage = () => {
         order_id: razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async response => {
           // console.log(response);
-          const { data } = await axios.post(
-            `/api/v1/razorpay/order/validate`,
-            response
-          );
-          const details = { ...data, email: order?.user?.email };
-          toast.success(data.message);
-          await payOrder({ orderId, details });
-          refetch();
+          try {
+            const { data } = await axios.post(
+              `/api/v1/razorpay/order/validate`,
+              response
+            );
+            const details = { ...data, email: order?.user?.email };
+            await payOrder({ orderId, details });
+            toast.success(data.message);
+            refetch();
+          } catch (error) {
+            toast.error(error?.data?.message || error.error);
+          }
           // alert(response.razorpay_payment_id);
           // alert(response.razorpay_order_id);
           // alert(response.razorpay_signature);
@@ -173,6 +179,16 @@ const OrderDetailsPage = () => {
     }
   };
 
+  const deliveredHandler = async () => {
+    try {
+      await updateDeliver(orderId);
+      toast.success('Order Delivered');
+      refetch();
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -202,7 +218,8 @@ const OrderDetailsPage = () => {
                   </div>
                   {order?.isDelivered ? (
                     <Message variant='success'>
-                      {'Delivered successfully'}
+                      Delivered on{' '}
+                      {new Date(order?.deliveredAt).toLocaleString()}
                     </Message>
                   ) : (
                     <Message variant={'danger'}>{'Not Delivered'}</Message>
@@ -291,7 +308,7 @@ const OrderDetailsPage = () => {
                       </Col>
                     </Row>
                   </ListGroup.Item>
-                  {!order?.isPaid && (
+                  {!order?.isPaid && !userInfo.isAdmin && (
                     <ListGroup.Item>
                       <Button
                         onClick={paymentHandler}
@@ -301,6 +318,19 @@ const OrderDetailsPage = () => {
                       </Button>
                     </ListGroup.Item>
                   )}
+                  {userInfo &&
+                    userInfo.isAdmin &&
+                    order?.isPaid &&
+                    !order?.isDelivered && (
+                      <ListGroup.Item>
+                        <Button
+                          onClick={deliveredHandler}
+                          style={{ marginBottom: '10px' }}
+                        >
+                          Mark As Delivered
+                        </Button>
+                      </ListGroup.Item>
+                    )}
                 </ListGroup>
               </Card>
             </Col>

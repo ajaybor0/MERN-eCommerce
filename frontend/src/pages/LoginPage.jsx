@@ -46,59 +46,60 @@ const LoginPage = () => {
     }
   };
   return (
-    <FormContainer>
-      <h1>Sign In</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group className='mb-3' controlId='email'>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type='email'
-            value={email}
-            placeholder='Enter email'
-            onChange={e => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='password'>
-          <Form.Label>Password</Form.Label>
-          <InputGroup>
+    <>
+      <FormContainer>
+        <h1>Sign In</h1>
+        <Form onSubmit={submitHandler}>
+          <Form.Group className='mb-3' controlId='email'>
+            <Form.Label>Email address</Form.Label>
             <Form.Control
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              placeholder='Enter password'
-              onChange={e => setPassword(e.target.value)}
+              type='email'
+              value={email}
+              placeholder='Enter email'
+              onChange={e => setEmail(e.target.value)}
             />
-            <InputGroup.Text
-              onClick={togglePasswordVisibility}
-              id='togglePasswordVisibility'
-              style={{ cursor: 'pointer' }}
-            >
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
-        <Button
-          className='mb-3'
-          variant='primary'
-          type='submit'
-          disabled={isLoading}
-        >
-          Sign In
-        </Button>
-
-        {isLoading && <Loader />}
-      </Form>
-      <Row>
-        <Col>
-          New Customer?
-          <Link
-            to={redirect ? `/register?redirect=${redirect}` : '/register'}
-            className=' mx-2'
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='password'>
+            <Form.Label>Password</Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                placeholder='Enter password'
+                onChange={e => setPassword(e.target.value)}
+              />
+              <InputGroup.Text
+                onClick={togglePasswordVisibility}
+                id='togglePasswordVisibility'
+                style={{ cursor: 'pointer' }}
+              >
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </InputGroup.Text>
+            </InputGroup>
+          </Form.Group>
+          <Button
+            className='mb-3'
+            variant='primary'
+            type='submit'
+            disabled={isLoading}
           >
-            Register
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+            Sign In
+          </Button>
+        </Form>
+        <Row>
+          <Col>
+            New Customer?
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : '/register'}
+              className=' mx-2'
+            >
+              Register
+            </Link>
+          </Col>
+        </Row>
+      </FormContainer>
+      {isLoading && <Loader />}
+    </>
   );
 };
 
