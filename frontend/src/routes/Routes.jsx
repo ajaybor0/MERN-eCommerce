@@ -16,7 +16,9 @@ import AdminRoute from '../components/AdminRoute';
 import OrderListPage from '../pages/admin/OrderListPage';
 import ProductListPage from '../pages/admin/ProductListPage';
 import UserListPage from '../pages/admin/UserListPage';
-import CreateProductPage from '../pages/admin/CreateProductPage';
+// import CreateProductPage from '../pages/admin/CreateProductPage';
+// import UpdateProductPage from '../pages/admin/UpdateProductPage';
+import ProductFormPage from '../pages/admin/ProductFormPage';
 
 const router = createBrowserRouter([
   {
@@ -88,7 +90,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/admin/product/create',
-            element: <CreateProductPage />
+            element: <ProductFormPage />
+          },
+          {
+            path: '/admin/product/update/:id',
+            element: <ProductFormPage />
           }
         ]
       }

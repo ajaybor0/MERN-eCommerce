@@ -2,7 +2,7 @@ import Product from '../models/productModel.js';
 
 // @desc     Fetch All Products
 // @method   GET
-// @endpoint /api/products
+// @endpoint /api/v1/products
 // @access   Public
 const getProducts = async (req, res, next) => {
   try {
@@ -21,12 +21,11 @@ const getProducts = async (req, res, next) => {
 
 // @desc     Fetch Single Product
 // @method   GET
-// @endpoint /api/products/:id
+// @endpoint /api/v1/products/:id
 // @access   Public
 const getProduct = async (req, res, next) => {
   try {
-    const { id: productId } = req.params;
-    const product = await Product.findById(productId);
+    const product = await Product.findById(req.params.id);
 
     if (!product) {
       res.statusCode = 404;
@@ -41,7 +40,7 @@ const getProduct = async (req, res, next) => {
 
 // @desc     Create product
 // @method   POST
-// @endpoint /api/products
+// @endpoint /api/v1/products
 // @access   Private/Admin
 const createProduct = async (req, res, next) => {
   try {
@@ -66,10 +65,42 @@ const createProduct = async (req, res, next) => {
   }
 };
 
+// @desc     Update product
+// @method   PUT
+// @endpoint /api/v1/products/:id
+// @access   Private/Admin
+const updateProduct = async (req, res, next) => {
+  try {
+    const { name, image, description, brand, category, price, countInStock } =
+      req.body;
+
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      res.statusCode = 404;
+      throw new Error('Product not found!');
+    }
+
+    (product.name = name || product.name),
+      (product.image = image || product.image),
+      (product.description = description || product.description),
+      (product.brand = brand || product.brand),
+      (product.category = category || product.category),
+      (product.price = price || product.price),
+      (product.countInStock = countInStock || product.countInStock);
+
+    const updatedProduct = await product.save();
+
+    res.status(200).json({ message: 'Product updated', updatedProduct });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc    Delete product
 // @method   DELETE
-// @endpoint /api/products/:id
-// @access   Public
+// @endpoint /api/v1/products/:id
+// @access   Admin
 const deleteProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -86,4 +117,4 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
-export { getProducts, getProduct, createProduct, deleteProduct };
+export { getProducts, getProduct, createProduct, updateProduct, deleteProduct };
