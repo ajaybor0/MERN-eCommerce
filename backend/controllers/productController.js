@@ -1,4 +1,5 @@
 import Product from '../models/productModel.js';
+import { deleteFile } from '../utils/file.js';
 
 // @desc     Fetch All Products
 // @method   GET
@@ -25,7 +26,8 @@ const getProducts = async (req, res, next) => {
 // @access   Public
 const getProduct = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const { id: productId } = req.params;
+    const product = await Product.findById(productId);
 
     if (!product) {
       res.statusCode = 404;
@@ -103,12 +105,14 @@ const updateProduct = async (req, res, next) => {
 // @access   Admin
 const deleteProduct = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const { id: productId } = req.params;
+    const product = await Product.findById(productId);
 
     if (!product) {
       res.statusCode = 404;
       throw new Error('Product not found!');
     }
+    // deleteFile(product.image); // Remove upload file
     await Product.deleteOne({ _id: product._id });
 
     res.status(200).json({ message: 'Product deleted' });

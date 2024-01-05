@@ -2,23 +2,21 @@ import React, { useEffect } from 'react';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { toast } from 'react-toastify';
-import { FaRupeeSign, FaPlus, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaRupeeSign, FaTrash, FaEdit } from 'react-icons/fa';
 import { useGetProductsQuery } from '../../slices/productsApiSlice';
 import { useDeleteProductMutation } from '../../slices/productsApiSlice';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 
 const ProductListPage = () => {
-  // console.log(useGetProductsQuery());
   const { data: products, refetch, isLoading, error } = useGetProductsQuery();
-  // console.log(useDeleteProductMutation());
+
+  const [deleteProduct, { isLoading: isDeleteProductLoading }] =
+    useDeleteProductMutation();
 
   useEffect(() => {
     refetch();
   }, [refetch, products]);
-
-  const [deleteProduct, { isLoading: isDeleteLoading }] =
-    useDeleteProductMutation();
 
   const deleteHandler = async productId => {
     try {
@@ -42,7 +40,7 @@ const ProductListPage = () => {
           </LinkContainer>
         </Col>
       </Row>
-      {isDeleteLoading && <Loader />}
+      {isDeleteProductLoading && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (

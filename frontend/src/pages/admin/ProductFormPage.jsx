@@ -89,6 +89,7 @@ const ProductFormPage = () => {
         toast.success(data.message);
       } else {
         const { data } = await createProduct(productData);
+        
         toast.success(data.message);
       }
       navigate('/admin/product-list');
@@ -138,7 +139,6 @@ const ProductFormPage = () => {
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>
               <Form.Control
-                label='Choose File'
                 type='file'
                 onChange={uploadFileHandler}
               ></Form.Control>

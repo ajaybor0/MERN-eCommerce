@@ -19,6 +19,7 @@ import UserListPage from '../pages/admin/UserListPage';
 // import CreateProductPage from '../pages/admin/CreateProductPage';
 // import UpdateProductPage from '../pages/admin/UpdateProductPage';
 import ProductFormPage from '../pages/admin/ProductFormPage';
+import UpdateUserFormPage from '../pages/admin/UpdateUserFormPage';
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
           {
             path: '/admin/product/update/:id',
             element: <ProductFormPage />
+          },
+          {
+            path: '/admin/user/update/:id',
+            element: <UpdateUserFormPage />
           }
         ]
       }
