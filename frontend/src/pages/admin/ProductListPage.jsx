@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { toast } from 'react-toastify';
@@ -12,14 +12,19 @@ const ProductListPage = () => {
   // console.log(useGetProductsQuery());
   const { data: products, refetch, isLoading, error } = useGetProductsQuery();
   // console.log(useDeleteProductMutation());
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, products]);
+
   const [deleteProduct, { isLoading: isDeleteLoading }] =
     useDeleteProductMutation();
 
   const deleteHandler = async productId => {
     try {
-      await deleteProduct(productId);
+      const { data } = await deleteProduct(productId);
       refetch();
-      toast.success('Product deleted');
+      toast.success(data.message);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -68,7 +73,7 @@ const ProductListPage = () => {
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>
-                  <LinkContainer to={`/admin/products/${product._id}/edit`}>
+                  <LinkContainer to={`/admin/product/update/${product._id}`}>
                     <Button className='btn-sm' variant='light'>
                       <FaEdit />
                     </Button>

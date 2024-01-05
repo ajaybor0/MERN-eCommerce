@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import Order from '../models/orderModel.js';
 
 // @desc     Create new order

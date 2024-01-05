@@ -136,6 +136,8 @@ const CreateProductPage = () => {
           <Form.Group controlId='description'>
             <Form.Label>Description</Form.Label>
             <Form.Control
+              as='textarea'
+              rows={3}
               type='text'
               placeholder='Enter description'
               value={description}
