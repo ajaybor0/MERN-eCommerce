@@ -137,9 +137,15 @@ const getUsers = async (req, res, next) => {
 // @method   GET
 // @endpoint /api/users/:id
 // @access   Private/Admin
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
-    res.status(200).json('Get user by id');
+    const { id: userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.statusCode = 404;
+      throw new Error('User not found!');
+    }
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({
       message: 'Internal Server Error'
@@ -151,9 +157,22 @@ const getUserById = async (req, res) => {
 // @method   PUT
 // @endpoint /api/users/:id
 // @access   Private/Admin
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
   try {
-    res.status(200).json('Update user');
+    const { name, email, isAdmin } = req.body;
+    const { id: userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.statusCode = 404;
+      throw new Error('User not found!');
+    }
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.isAdmin = Boolean(isAdmin);
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({ message: 'User updated', updatedUser });
   } catch (error) {
     res.status(500).json({
       message: 'Internal Server Error'
@@ -202,13 +221,18 @@ const updateUserProfile = async (req, res, next) => {
 // @method   DELETE
 // @endpoint /api/users/:id
 // @access   Private/Admin
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   try {
-    res.status(200).json('Delete user');
+    const { id: userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.statusCode = 404;
+      throw new Error('User not found!');
+    }
+    await User.deleteOne({ _id: user._id });
+    res.status(200).json({ message: 'User deleted' });
   } catch (error) {
-    res.status(500).json({
-      message: 'Internal Server Error'
-    });
+    next(error);
   }
 };
 
