@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaIndianRupeeSign, FaXmark } from 'react-icons/fa6';
@@ -10,7 +10,11 @@ import Message from '../../components/Message';
 const OrderListsPage = () => {
   // console.log(useGetOrdersQuery());
 
-  const { data: orders, isLoading, error } = useGetOrdersQuery();
+  const { data: orders, refetch, isLoading, error } = useGetOrdersQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, orders]);
 
   return (
     <>
