@@ -25,9 +25,8 @@ const ProductFormPage = () => {
   const [price, setPrice] = useState(0);
   const [countInStock, setCountInStock] = useState(0);
 
-  // Separate the hook call from the object destructuring
   const getProductQueryResult = useGetProductDetailsQuery(productId);
-  // Destructure the result outside the conditional
+
   const {
     data: product,
     isLoading,
@@ -89,7 +88,7 @@ const ProductFormPage = () => {
         toast.success(data.message);
       } else {
         const { data } = await createProduct(productData);
-        
+
         toast.success(data.message);
       }
       navigate('/admin/product-list');

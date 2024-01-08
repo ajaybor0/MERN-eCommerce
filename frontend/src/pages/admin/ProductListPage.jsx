@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { toast } from 'react-toastify';
@@ -7,16 +7,31 @@ import { useGetProductsQuery } from '../../slices/productsApiSlice';
 import { useDeleteProductMutation } from '../../slices/productsApiSlice';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import Paginate from '../../components/Paginate';
 
 const ProductListPage = () => {
-  const { data: products, refetch, isLoading, error } = useGetProductsQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [limit, setLimit] = useState(0);
+  const [skip, setSkip] = useState(0);
+
+  const { data, refetch, isLoading, error } = useGetProductsQuery({
+    limit,
+    skip
+  });
 
   const [deleteProduct, { isLoading: isDeleteProductLoading }] =
     useDeleteProductMutation();
 
   useEffect(() => {
-    refetch();
-  }, [refetch, products]);
+    if (data) {
+      setLimit(4);
+      setSkip((currentPage - 1) * limit);
+      setTotal(data.total);
+      setTotalPage(Math.ceil(total / limit));
+    }
+  }, [currentPage, data, limit, total]);
 
   const deleteHandler = async productId => {
     try {
@@ -25,6 +40,12 @@ const ProductListPage = () => {
       toast.success(data.message);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
+    }
+  };
+
+  const pageHandler = pageNum => {
+    if (pageNum >= 1 && pageNum <= totalPage && pageNum !== currentPage) {
+      setCurrentPage(pageNum);
     }
   };
 
@@ -60,7 +81,7 @@ const ProductListPage = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map(product => (
+            {data.products.map(product => (
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
@@ -89,6 +110,13 @@ const ProductListPage = () => {
             ))}
           </tbody>
         </Table>
+      )}
+      {totalPage > 1 && (
+        <Paginate
+          currentPage={currentPage}
+          totalPage={totalPage}
+          pageHandler={pageHandler}
+        />
       )}
     </>
   );

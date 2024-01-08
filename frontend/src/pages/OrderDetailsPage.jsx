@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+
 import { useParams, Link } from 'react-router-dom';
 import { Row, Col, ListGroup, Button, Image, Card } from 'react-bootstrap';
 import {
@@ -23,94 +23,19 @@ const OrderDetailsPage = () => {
     data: order,
     refetch,
     isLoading,
-    isError,
     error
   } = useGetOrderDetailsQuery(orderId);
 
-  const [payOrder] = usePayOrderMutation();
-  const [updateDeliver] = useUpdateDeliverMutation();
-  console.log(useUpdateDeliverMutation());
+  const [payOrder, { isLoading: isPayOrderLoading }] = usePayOrderMutation();
+  const [updateDeliver, { isLoading: isUpdateDeliverLoading }] =
+    useUpdateDeliverMutation();
 
-  // const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const { userInfo } = useSelector(state => state.auth);
-  // const {
-  //   data: paypal,
-
-  //   isError: isErrorPayPal
-  // } = useGetPayPalClientIdQuery();
-
-  // useEffect(() => {
-  //   if (!isErrorPayPal && paypal?.clientId) {
-  //     const loadPayPalScript = async () => {
-  //       paypalDispatch({
-  //         type: 'resetOptions',
-  //         value: {
-  //           clientId: paypal?.clientId,
-  //           currency: 'USD'
-  //         }
-  //       });
-  //       paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-  //     };
-  //     if (order && !order?.isPaid) {
-  //       if (!window?.paypal) {
-  //         loadPayPalScript();
-  //       }
-  //     }
-  //   }
-  // }, [order, paypal, paypalDispatch, isErrorPayPal]);
-
-  // const onApproveTest = async () => {
-  //   await payOrder({ orderId, details: { payer: {} } });
-  //   refetch();
-  //   toast.success('Payment successful.');
-  // };
-
-  // const createOrder = async (data, actions) => {
-  //   const orderId = await actions.order.create({
-  //     purchase_units: [
-  //       {
-  //         amount: {
-  //           value: order?.totalPrice
-  //         }
-  //       }
-  //     ]
-  //   });
-
-  //   return orderId;
-  // };
-
-  // const onApprove = async (data, actions) => {
-  //   try {
-  //     const details = await actions.order.capture();
-  //     await payOrder({ orderId, details });
-  //     refetch();
-  //     toast.success('Payment successful.');
-  //   } catch (error) {
-  //     toast.error(error?.data?.message || error.message);
-  //   }
-  // };
-
-  // const onError = error => {
-  //   toast.error(error?.data?.message || error.message);
-  // };
 
   const { data: razorpayApiKey } = useGetRazorpayApiKeyQuery();
 
   const paymentHandler = async e => {
     try {
-      // Check if order is defined before proceeding
-      // if (!order) {
-      //   console.error('Order is undefined');
-      //   return;
-      // }
-
-      // Check if totalPrice is a valid number
-      // const totalPrice = parseFloat(order.totalPrice);
-      // if (isNaN(totalPrice) || totalPrice <= 0) {
-      //   console.error('Invalid totalPrice:', order.totalPrice);
-      //   return;
-      // }
-
       // Make the API call to Razorpay
 
       const razorpayData = {
@@ -131,7 +56,7 @@ const OrderDetailsPage = () => {
         image: 'https://example.com/your_logo',
         order_id: razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async response => {
-          // console.log(response);
+          console.log(response);
           try {
             const { data } = await axios.post(
               `/api/v1/razorpay/order/validate`,
@@ -144,9 +69,6 @@ const OrderDetailsPage = () => {
           } catch (error) {
             toast.error(error?.data?.message || error.error);
           }
-          // alert(response.razorpay_payment_id);
-          // alert(response.razorpay_order_id);
-          // alert(response.razorpay_signature);
         },
         prefill: {
           //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
@@ -191,8 +113,14 @@ const OrderDetailsPage = () => {
 
   return (
     <>
+      {isPayOrderLoading && <Loader />}
+      {isUpdateDeliverLoading && <Loader />}
       {isLoading ? (
         <Loader />
+      ) : error ? (
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <h1>Order ID: {orderId}</h1>
@@ -256,7 +184,8 @@ const OrderDetailsPage = () => {
                             <Link to={`/product/${item._id}`}>{item.name}</Link>
                           </Col>
                           <Col md={4}>
-                            {item.qty} x ${item.price} = $
+                            {item.qty} x <FaIndianRupeeSign size={14} />
+                            {item.price} = <FaIndianRupeeSign size={14} />
                             {item.qty * item.price}
                           </Col>
                         </Row>
@@ -276,7 +205,7 @@ const OrderDetailsPage = () => {
                     <Row>
                       <Col>Items:</Col>
                       <Col>
-                        <FaIndianRupeeSign />
+                        <FaIndianRupeeSign size={14} />
                         {order?.itemsPrice}
                       </Col>
                     </Row>
@@ -285,7 +214,7 @@ const OrderDetailsPage = () => {
                     <Row>
                       <Col>Shipping:</Col>
                       <Col>
-                        <FaIndianRupeeSign />
+                        <FaIndianRupeeSign size={14} />
                         {order?.shippingPrice}
                       </Col>
                     </Row>
@@ -294,7 +223,7 @@ const OrderDetailsPage = () => {
                     <Row>
                       <Col>Tax:</Col>
                       <Col>
-                        <FaIndianRupeeSign />
+                        <FaIndianRupeeSign size={14} />
                         {order?.taxPrice}
                       </Col>
                     </Row>
@@ -303,7 +232,7 @@ const OrderDetailsPage = () => {
                     <Row>
                       <Col>Total:</Col>
                       <Col>
-                        <FaIndianRupeeSign />
+                        <FaIndianRupeeSign size={14} />
                         {order?.totalPrice}
                       </Col>
                     </Row>

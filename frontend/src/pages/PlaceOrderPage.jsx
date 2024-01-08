@@ -80,8 +80,8 @@ const PlaceOrderPage = () => {
                         <Link to={`/product/${item._id}`}>{item.name}</Link>
                       </Col>
                       <Col md={4}>
-                        {item.qty} x <FaIndianRupeeSign />
-                        {item.price} = <FaIndianRupeeSign />
+                        {item.qty} x <FaIndianRupeeSign size={14} />
+                        {item.price} = <FaIndianRupeeSign size={14} />
                         {item.qty * item.price}
                       </Col>
                     </Row>
@@ -101,7 +101,7 @@ const PlaceOrderPage = () => {
                 <Row>
                   <Col>Items:</Col>
                   <Col>
-                    <FaIndianRupeeSign />
+                    <FaIndianRupeeSign size={14} />
                     {itemsPrice}
                   </Col>
                 </Row>
@@ -110,7 +110,7 @@ const PlaceOrderPage = () => {
                 <Row>
                   <Col>Shipping:</Col>
                   <Col>
-                    <FaIndianRupeeSign />
+                    <FaIndianRupeeSign size={14} />
                     {shippingPrice}
                   </Col>
                 </Row>
@@ -119,7 +119,7 @@ const PlaceOrderPage = () => {
                 <Row>
                   <Col>Tax:</Col>
                   <Col>
-                    <FaIndianRupeeSign />
+                    <FaIndianRupeeSign size={14} />
                     {taxPrice}
                   </Col>
                 </Row>
@@ -128,7 +128,7 @@ const PlaceOrderPage = () => {
                 <Row>
                   <Col>Total:</Col>
                   <Col>
-                    <FaIndianRupeeSign />
+                    <FaIndianRupeeSign size={14} />
                     {totalPrice}
                   </Col>
                 </Row>

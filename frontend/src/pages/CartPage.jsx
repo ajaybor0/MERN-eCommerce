@@ -53,7 +53,7 @@ const CartPage = () => {
                     <Link to={`/product/${item._id}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>
-                    <FaIndianRupeeSign />
+                    <FaIndianRupeeSign size={14} />
                     {item.price}
                   </Col>
                   <Col md={2}>
@@ -94,7 +94,7 @@ const CartPage = () => {
                     Subtotal (
                     {cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
                   </h2>
-                  <FaIndianRupeeSign />
+                  <FaIndianRupeeSign size={14} />
                   {cartItems
                     .reduce((acc, item) => acc + item.qty * item.price, 0)
                     .toFixed(2)}
