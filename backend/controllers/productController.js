@@ -36,6 +36,25 @@ const getProducts = async (req, res, next) => {
   }
 };
 
+// @desc     Fetch top products
+// @method   GET
+// @endpoint /api/v1/products/top
+// @access   Public
+const getTopProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+    if (!products) {
+      res.statusCode = 404;
+      throw new Error('Product not found!');
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc     Fetch Single Product
 // @method   GET
 // @endpoint /api/v1/products/:id
@@ -190,5 +209,6 @@ export {
   createProduct,
   updateProduct,
   deleteProduct,
-  createProductReview
+  createProductReview,
+  getTopProducts
 };
