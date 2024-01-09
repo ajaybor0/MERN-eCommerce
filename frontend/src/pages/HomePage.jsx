@@ -7,6 +7,7 @@ import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
+import { useSelector } from 'react-redux';
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,8 +15,13 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [limit, setLimit] = useState(0);
   const [skip, setSkip] = useState(0);
+  const { search } = useSelector(state => state.search);
 
-  const { data, isLoading, error } = useGetProductsQuery({ limit, skip });
+  const { data, isLoading, error } = useGetProductsQuery({
+    limit,
+    skip,
+    search
+  });
 
   useEffect(() => {
     if (data) {
@@ -24,7 +30,7 @@ const HomePage = () => {
       setTotal(data.total);
       setTotalPage(Math.ceil(total / limit));
     }
-  }, [currentPage, data, limit, total]);
+  }, [currentPage, data, limit, total, search]);
 
   const pageHandler = pageNum => {
     if (pageNum >= 1 && pageNum <= totalPage && pageNum !== currentPage) {

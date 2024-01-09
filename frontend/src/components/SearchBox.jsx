@@ -1,29 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Button, InputGroup } from 'react-bootstrap';
-import { FaSearch } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Form, Button, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { useGetProductsQuery } from '../slices/productsApiSlice';
+import { searchProduct, clearSearch } from '../slices/searchProductSlice';
+
 
 function SearchBox() {
-  const [search, setSearch] = useState('');
+  const [input, setInput] = useState('');
 
-  const { refetch } = useGetProductsQuery({ search });
+  const dispatch = useDispatch();
 
-  const searchHandler = e => {
+  const searchProductHandler = e => {
     e.preventDefault();
-    refetch();
+    dispatch(searchProduct(input));
+  };
+
+  const clearSearchHandler = () => {
+    dispatch(clearSearch());
+    setInput('');
   };
   return (
-    <Form onSubmit={searchHandler} className='d-flex '>
+    <Form onSubmit={searchProductHandler} className='d-flex '>
       <InputGroup>
         <Form.Control
           size='sm'
           type='text'
-          value={search}
-          onChange={e => setSearch(e.target.value)}
+          value={input}
+          onChange={e => setInput(e.target.value)}
           placeholder='Search Products'
         />
-        <Button type='submit' variant='outline-secondary'>
+        {input === '' ? (
+          ''
+        ) : (
+          <Button
+            type='button'
+            variant='light'
+            onClick={clearSearchHandler}
+          >
+            <FaTimes />
+          </Button>
+        )}
+        <Button type='submit' variant='secondary'>
           <FaSearch />
         </Button>
       </InputGroup>
