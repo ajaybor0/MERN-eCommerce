@@ -6,8 +6,8 @@ import { FaRupeeSign, FaTrash, FaEdit } from 'react-icons/fa';
 import { useGetProductsQuery } from '../../slices/productsApiSlice';
 import { useDeleteProductMutation } from '../../slices/productsApiSlice';
 import Loader from '../../components/Loader';
-import Message from '../../components/Message';
 import Paginate from '../../components/Paginate';
+import ServerError from '../../components/ServerError';
 
 const ProductListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,9 +65,7 @@ const ProductListPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <Table striped hover bordered responsive size='sm'>
           <thead>

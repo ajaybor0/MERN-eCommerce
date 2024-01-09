@@ -9,6 +9,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
+import ServerError from '../components/ServerError';
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,9 +45,7 @@ const HomePage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <>
           {!search && <ProductCarousel />}

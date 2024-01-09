@@ -21,6 +21,7 @@ import { toast } from 'react-toastify';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import ServerError from '../components/ServerError';
 
 const ProductPage = () => {
   const { id: productId } = useParams();
@@ -72,9 +73,7 @@ const ProductPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError/>
       ) : (
         <>
           <Link to='/' className='btn btn-light my-3'>

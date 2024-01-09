@@ -8,8 +8,8 @@ import {
   useDeleteUserMutation
 } from '../../slices/usersApiSlice';
 import Loader from '../../components/Loader';
-import Message from '../../components/Message';
 import { toast } from 'react-toastify';
+import ServerError from '../../components/ServerError';
 
 const UserListPage = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -36,9 +36,7 @@ const UserListPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <Table striped hover bordered responsive size='sm'>
           <thead>

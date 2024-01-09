@@ -4,7 +4,7 @@ import { Carousel, Image } from 'react-bootstrap';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { useGetTopProductsQuery } from '../slices/productsApiSlice';
 import Loader from './Loader';
-import Message from './Message';
+import ServerError from './ServerError';
 const ProductCarousel = () => {
   const { data: products, isLoading, error } = useGetTopProductsQuery();
 
@@ -13,9 +13,9 @@ const ProductCarousel = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <ServerError />
       ) : (
-        <Carousel  fade className='text-center bg-secondary mb-5 '>
+        <Carousel fade className='text-center bg-secondary mb-5 '>
           {products?.map(product => (
             <Carousel.Item key={product._id} interval={3000}>
               <Link to={`/product/${product._id}`}>

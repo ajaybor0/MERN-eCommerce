@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import ServerError from '../components/ServerError';
 
 import axios from 'axios';
 // import { RAZORPAY_URL } from '../constants';
@@ -118,9 +119,7 @@ const OrderDetailsPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <>
           <h1>Order ID: {orderId}</h1>
