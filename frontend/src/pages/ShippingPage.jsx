@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../slices/cartSlice';
 import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 const ShippingPage = () => {
   const { shippingAddress } = useSelector(state => state.cart);
@@ -34,6 +35,7 @@ const ShippingPage = () => {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
+      <Meta title={'Shipping'} />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className='mb-3' controlId='address'>

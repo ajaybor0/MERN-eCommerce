@@ -20,6 +20,7 @@ import UserListPage from '../pages/admin/UserListPage';
 // import UpdateProductPage from '../pages/admin/UpdateProductPage';
 import ProductFormPage from '../pages/admin/ProductFormPage';
 import UpdateUserFormPage from '../pages/admin/UpdateUserFormPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
             element: <UpdateUserFormPage />
           }
         ]
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />
       }
     ]
   }

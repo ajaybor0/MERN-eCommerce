@@ -7,9 +7,9 @@ import {
   useGetUserByIdQuery
 } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
-
 import Loader from '../../components/Loader';
-import Message from '../../components/Message';
+import ServerError from '../../components/ServerError';
+import Meta from '../../components/Meta';
 
 const UpdateUserFormPage = () => {
   const { id: userId } = useParams();
@@ -54,11 +54,10 @@ const UpdateUserFormPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <FormContainer>
+          <Meta title={'Update User'} />
           <h1>Update user</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3' controlId='name'>

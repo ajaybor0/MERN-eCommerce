@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import { Row, Col } from 'react-bootstrap';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
+import { useSelector } from 'react-redux';
 
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
-import { useSelector } from 'react-redux';
+import ProductCarousel from '../components/ProductCarousel';
+import ServerError from '../components/ServerError';
+import Meta from '../components/Meta';
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,11 +46,11 @@ const HomePage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <>
+          {!search && <ProductCarousel />}
+          <Meta />
           <h1>Latest Products</h1>
           <Row>
             {data.products.map(product => (
@@ -56,7 +59,7 @@ const HomePage = () => {
               </Col>
             ))}
           </Row>
-          {totalPage > 1 && (
+          {totalPage > 1 && !search && (
             <Paginate
               currentPage={currentPage}
               totalPage={totalPage}

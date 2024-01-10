@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 
 const ProfilePage = () => {
   const [name, setName] = useState('');
@@ -57,6 +58,7 @@ const ProfilePage = () => {
     <>
       <Row>
         <Col md={3}>
+          <Meta title={'User Profile'}/>
           <h2>User Profile</h2>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3' controlId='name'>

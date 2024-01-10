@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
+import Meta from '../components/Meta';
 
 const PlaceOrderPage = () => {
   const {
@@ -53,7 +54,7 @@ const PlaceOrderPage = () => {
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
-
+      <Meta title={'Place Order'} />
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>

@@ -5,11 +5,10 @@ import { FaIndianRupeeSign, FaXmark } from 'react-icons/fa6';
 import { FaCheck } from 'react-icons/fa';
 import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
 import Loader from '../../components/Loader';
-import Message from '../../components/Message';
+import ServerError from '../../components/ServerError';
+import Meta from '../../components/Meta';
 
 const OrderListsPage = () => {
-  // console.log(useGetOrdersQuery());
-
   const { data: orders, refetch, isLoading, error } = useGetOrdersQuery();
 
   useEffect(() => {
@@ -18,13 +17,12 @@ const OrderListsPage = () => {
 
   return (
     <>
+      <Meta title={'Order List'}/>
       <h2>Orders</h2>
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
         <Table striped hover bordered responsive size='sm'>
           <thead>

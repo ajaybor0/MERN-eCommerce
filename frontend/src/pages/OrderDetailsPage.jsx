@@ -13,8 +13,10 @@ import { toast } from 'react-toastify';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import ServerError from '../components/ServerError';
 
 import axios from 'axios';
+import Meta from '../components/Meta';
 // import { RAZORPAY_URL } from '../constants';
 const OrderDetailsPage = () => {
   const { id: orderId } = useParams();
@@ -118,11 +120,10 @@ const OrderDetailsPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
+        <ServerError />
       ) : (
-        <>
+            <>
+              <Meta title={'Order Details'}/>
           <h1>Order ID: {orderId}</h1>
           <Row>
             <Col md={8}>

@@ -11,6 +11,7 @@ import {
 import FormContainer from '../../components/FormContainer';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import Meta from '../../components/Meta';
 
 const ProductFormPage = () => {
   const { id: productId } = useParams();
@@ -113,6 +114,7 @@ const ProductFormPage = () => {
         </Message>
       ) : (
         <FormContainer>
+          <Meta title={'Product Form'} />
           <h1>{isUpdateMode ? 'Update Product' : 'Create Product'}</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
