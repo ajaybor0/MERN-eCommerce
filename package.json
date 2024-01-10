@@ -24,6 +24,7 @@
     "mongoose": "^8.0.3",
     "multer": "^1.4.5-lts.1",
     "razorpay": "^2.9.2",
+    "react-helmet-async": "^2.0.4",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

@@ -6,6 +6,7 @@ import { FaCheck } from 'react-icons/fa';
 import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
 import Loader from '../../components/Loader';
 import ServerError from '../../components/ServerError';
+import Meta from '../../components/Meta';
 
 const OrderListsPage = () => {
   const { data: orders, refetch, isLoading, error } = useGetOrdersQuery();
@@ -16,6 +17,7 @@ const OrderListsPage = () => {
 
   return (
     <>
+      <Meta title={'Order List'}/>
       <h2>Orders</h2>
       {isLoading ? (
         <Loader />

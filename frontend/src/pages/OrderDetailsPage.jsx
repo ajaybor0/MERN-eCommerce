@@ -16,6 +16,7 @@ import Message from '../components/Message';
 import ServerError from '../components/ServerError';
 
 import axios from 'axios';
+import Meta from '../components/Meta';
 // import { RAZORPAY_URL } from '../constants';
 const OrderDetailsPage = () => {
   const { id: orderId } = useParams();
@@ -121,7 +122,8 @@ const OrderDetailsPage = () => {
       ) : error ? (
         <ServerError />
       ) : (
-        <>
+            <>
+              <Meta title={'Order Details'}/>
           <h1>Order ID: {orderId}</h1>
           <Row>
             <Col md={8}>

@@ -8,6 +8,7 @@ import { useDeleteProductMutation } from '../../slices/productsApiSlice';
 import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
 import ServerError from '../../components/ServerError';
+import Meta from '../../components/Meta';
 
 const ProductListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,6 +54,7 @@ const ProductListPage = () => {
     <>
       <Row className='align-items-center'>
         <Col>
+          <Meta title={'Product List'}/>
           <h1>Products</h1>
         </Col>
         <Col className='text-end'>

@@ -9,6 +9,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -61,6 +62,7 @@ const RegisterPage = () => {
 
   return (
     <FormContainer>
+      <Meta title={'Register'}/>
       <h1>Register</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className='mb-3' controlId='name'>

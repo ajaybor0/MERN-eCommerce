@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container, Col, Button } from 'react-bootstrap';
+import Meta from '../components/Meta';
 
 const NotFoundPage = () => {
   return (
     <Container className='position-absolute top-50 start-50 translate-middle'>
+      <Meta title={'404 Not Found'} />
       <Col className='text-center'>
         <h1 className='display-1 fw-bold'>404</h1>
         <p className='fs-3'>

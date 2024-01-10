@@ -10,6 +10,7 @@ import Message from '../components/Message';
 import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
 import ServerError from '../components/ServerError';
+import Meta from '../components/Meta';
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,6 +50,7 @@ const HomePage = () => {
       ) : (
         <>
           {!search && <ProductCarousel />}
+          <Meta />
           <h1>Latest Products</h1>
           <Row>
             {data.products.map(product => (

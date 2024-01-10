@@ -9,6 +9,7 @@ import {
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
 import ServerError from '../../components/ServerError';
+import Meta from '../../components/Meta';
 
 const UpdateUserFormPage = () => {
   const { id: userId } = useParams();
@@ -56,6 +57,7 @@ const UpdateUserFormPage = () => {
         <ServerError />
       ) : (
         <FormContainer>
+          <Meta title={'Update User'} />
           <h1>Update user</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3' controlId='name'>

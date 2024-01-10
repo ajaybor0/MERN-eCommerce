@@ -22,6 +22,7 @@ import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ServerError from '../components/ServerError';
+import Meta from '../components/Meta';
 
 const ProductPage = () => {
   const { id: productId } = useParams();
@@ -73,12 +74,13 @@ const ProductPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError/>
+        <ServerError />
       ) : (
         <>
           <Link to='/' className='btn btn-light my-3'>
             Go Back
           </Link>
+          <Meta title={product.name} description={product.description} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />

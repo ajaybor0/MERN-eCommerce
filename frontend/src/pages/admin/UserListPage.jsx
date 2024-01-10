@@ -10,6 +10,7 @@ import {
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import ServerError from '../../components/ServerError';
+import Meta from '../../components/Meta';
 
 const UserListPage = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -31,6 +32,7 @@ const UserListPage = () => {
   };
   return (
     <>
+      <Meta title={'User List'}/>
       <h2>Users</h2>
       {isDeleteUserLoading && <Loader />}
       {isLoading ? (

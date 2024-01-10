@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -48,6 +49,7 @@ const LoginPage = () => {
   return (
     <>
       <FormContainer>
+        <Meta title={'Sign In'}/>
         <h1>Sign In</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className='mb-3' controlId='email'>

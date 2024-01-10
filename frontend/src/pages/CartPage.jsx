@@ -15,6 +15,7 @@ import { FaIndianRupeeSign } from 'react-icons/fa6';
 
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
+import Meta from '../components/Meta';
 const CartPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const CartPage = () => {
 
   return (
     <>
+      <Meta title={'Shopping Cart'} />
       <h1>Shopping Cart</h1>
       <Row>
         <Col md={8}>

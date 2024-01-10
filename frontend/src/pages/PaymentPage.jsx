@@ -5,6 +5,7 @@ import { savePaymentMethod } from '../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState('Razorpay');
 
@@ -27,6 +28,7 @@ const Payment = () => {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
+      <Meta title={'Payment Method'} />
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group>
