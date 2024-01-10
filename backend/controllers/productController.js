@@ -1,5 +1,5 @@
 import Product from '../models/productModel.js';
-// import { deleteFile } from '../utils/file.js';
+import { deleteFile } from '../utils/file.js';
 
 // @desc     Fetch All Products
 // @method   GET
@@ -8,7 +8,7 @@ import Product from '../models/productModel.js';
 const getProducts = async (req, res, next) => {
   try {
     const total = await Product.countDocuments();
-    const maxLimit = 10;
+    const maxLimit = process.env.PAGINATION_MAX_LIMIT;
     const maxSkip = total - 1;
     const limit = Number(req.query.limit) || maxLimit;
     const skip = Number(req.query.skip) || 0;
@@ -118,15 +118,23 @@ const updateProduct = async (req, res, next) => {
       throw new Error('Product not found!');
     }
 
-    (product.name = name || product.name),
-      (product.image = image || product.image),
-      (product.description = description || product.description),
-      (product.brand = brand || product.brand),
-      (product.category = category || product.category),
-      (product.price = price || product.price),
-      (product.countInStock = countInStock || product.countInStock);
+    // Save the current image path before updating
+    const previousImage = product.image;
+
+    product.name = name || product.name;
+    product.image = image || product.image;
+    product.description = description || product.description;
+    product.brand = brand || product.brand;
+    product.category = category || product.category;
+    product.price = price || product.price;
+    product.countInStock = countInStock || product.countInStock;
 
     const updatedProduct = await product.save();
+
+    // Delete the previous image if it exists and if it's different from the new image
+    if (previousImage && previousImage !== updatedProduct.image) {
+      deleteFile(previousImage);
+    }
 
     res.status(200).json({ message: 'Product updated', updatedProduct });
   } catch (error) {
@@ -147,8 +155,8 @@ const deleteProduct = async (req, res, next) => {
       res.statusCode = 404;
       throw new Error('Product not found!');
     }
-    // deleteFile(product.image); // Remove upload file
     await Product.deleteOne({ _id: product._id });
+    deleteFile(product.image); // Remove upload file
 
     res.status(200).json({ message: 'Product deleted' });
   } catch (error) {

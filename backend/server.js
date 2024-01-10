@@ -31,10 +31,6 @@ app.use(express.urlencoded({ extended: true }));
 const __dirname = path.resolve(); // Set {__dirname} to current working directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
 app.get('/api/v1/config/razorpay', (req, res) =>
   res.send({
     razorpayKeyId: process.env.RAZORPAY_KEY_ID,
@@ -89,6 +85,22 @@ app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/upload', uploadRoutes);
+
+//-------------------------------------
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+  //any app route that is not api will redirected to index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('Hello, World!');
+  });
+}
+
 //-------------------------------------
 app.use(notFound);
 app.use(errorHandler);

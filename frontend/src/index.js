@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import Routes from './routes/Routes';
 import store from './store';
 import { Provider } from 'react-redux';
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { HelmetProvider } from 'react-helmet-async';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,9 +14,7 @@ root.render(
   <React.StrictMode>
     <HelmetProvider>
       <Provider store={store}>
-        <PayPalScriptProvider deferLoading={true}>
-          <Routes />
-        </PayPalScriptProvider>
+        <Routes />
       </Provider>
     </HelmetProvider>
   </React.StrictMode>
