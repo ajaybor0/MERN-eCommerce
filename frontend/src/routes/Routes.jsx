@@ -21,6 +21,11 @@ import UserListPage from '../pages/admin/UserListPage';
 import ProductFormPage from '../pages/admin/ProductFormPage';
 import UpdateUserFormPage from '../pages/admin/UpdateUserFormPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import AdminDashboard from '../AdminDashboard';
+import AdminLoginPage from '../pages/admin/AdminLoginPage';
+import Dashboard from '../pages/admin/Dashboard';
+import AdminProfilePage from '../pages/admin/AdminProfilePage';
+import AdminListPage from '../pages/admin/AdminListPage';
 
 const router = createBrowserRouter([
   {
@@ -73,11 +78,25 @@ const router = createBrowserRouter([
             element: <ProfilePage />
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    path: '/admin/login',
+    element: <AdminLoginPage />
+  },
+  {
+    path: '',
+    element: <AdminDashboard />,
+    children: [
       {
         path: '',
         element: <AdminRoute />,
         children: [
+          {
+            path: '/admin/dashboard',
+            element: <Dashboard />
+          },
           {
             path: '/admin/order-list',
             element: <OrderListPage />
@@ -101,14 +120,22 @@ const router = createBrowserRouter([
           {
             path: '/admin/user/update/:id',
             element: <UpdateUserFormPage />
+          },
+          {
+            path: '/admin/profile',
+            element: <AdminProfilePage />
+          },
+          {
+            path: '/admin/admin-list',
+            element: <AdminListPage />
           }
         ]
-      },
-      {
-        path: '*',
-        element: <NotFoundPage />
       }
     ]
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />
   }
 ]);
 const Routes = () => {

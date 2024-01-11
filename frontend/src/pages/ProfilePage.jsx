@@ -12,55 +12,57 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
+import ProfileForm from '../components/ProfileForm';
 
 const ProfilePage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
+  // const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showConfirmPassword, setConfirmShowPassword] = useState(false);
 
-  const { userInfo } = useSelector(state => state.auth);
+  // const { userInfo } = useSelector(state => state.auth);
 
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
-  const [updateProfile, { isLoading: isUpdateProfileLoading }] =
-    useProfileMutation();
+  // const [updateProfile, { isLoading: isUpdateProfileLoading }] =
+  //   useProfileMutation();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  const toggleConfirmPasswordVisibility = () => {
-    setConfirmShowPassword(!showConfirmPassword);
-  };
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
+  // const toggleConfirmPasswordVisibility = () => {
+  //   setConfirmShowPassword(!showConfirmPassword);
+  // };
 
-  const submitHandler = async e => {
-    e.preventDefault();
+  // const submitHandler = async e => {
+  //   e.preventDefault();
 
-    try {
-      if (password !== confirmPassword) {
-        return toast.error('Passwords do not match!');
-      }
-      const res = await updateProfile({ name, email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      toast.success(res.message);
-    } catch (error) {
-      toast.error(error?.data?.message || error.error);
-    }
-  };
+  //   try {
+  //     if (password !== confirmPassword) {
+  //       return toast.error('Passwords do not match!');
+  //     }
+  //     const res = await updateProfile({ name, email, password }).unwrap();
+  //     dispatch(setCredentials({ ...res }));
+  //     setName('');
+  //     setEmail('');
+  //     setPassword('');
+  //     setConfirmPassword('');
+  //     toast.success(res.message);
+  //   } catch (error) {
+  //     toast.error(error?.data?.message || error.error);
+  //   }
+  // };
   return (
     <>
       <Row>
         <Col md={3}>
-          <Meta title={'User Profile'}/>
+          <Meta title={'User Profile'} />
           <h2>User Profile</h2>
-          <Form onSubmit={submitHandler}>
+          <ProfileForm />
+          {/* <Form onSubmit={submitHandler}>
             <Form.Group className='mb-3' controlId='name'>
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -119,7 +121,7 @@ const ProfilePage = () => {
               Update
             </Button>
             {isUpdateProfileLoading && <Loader />}
-          </Form>
+          </Form> */}
         </Col>
         <Col md={9}>
           <h2>My Orders</h2>

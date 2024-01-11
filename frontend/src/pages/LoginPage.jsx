@@ -49,7 +49,7 @@ const LoginPage = () => {
   return (
     <>
       <FormContainer>
-        <Meta title={'Sign In'}/>
+        <Meta title={'Sign In'} />
         <h1>Sign In</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className='mb-3' controlId='email'>
