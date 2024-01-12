@@ -7,7 +7,7 @@ import { useGetProductsQuery } from '../../slices/productsApiSlice';
 import { useDeleteProductMutation } from '../../slices/productsApiSlice';
 import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
-import ServerError from '../../components/ServerError';
+import Message from '../../components/Message';
 import Meta from '../../components/Meta';
 
 const ProductListPage = () => {
@@ -54,7 +54,7 @@ const ProductListPage = () => {
     <>
       <Row className='align-items-center'>
         <Col>
-          <Meta title={'Product List'}/>
+          <Meta title={'Product List'} />
           <h1>Products</h1>
         </Col>
         <Col className='text-end'>
@@ -67,7 +67,9 @@ const ProductListPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError />
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <Table striped hover bordered responsive size='sm'>
           <thead>

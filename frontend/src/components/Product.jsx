@@ -7,7 +7,7 @@ import { addCurrency } from '../utils/addCurrency';
 
 const Product = ({ product }) => {
   return (
-    <Card className='my-3 p-3 rounded'>
+    <Card className='my-3 p-3 rounded text-center'>
       <Link
         to={`/product/${product._id}`}
         style={{ textDecoration: 'none' }}
