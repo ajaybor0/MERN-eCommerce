@@ -9,7 +9,7 @@ import {
 } from '../../slices/usersApiSlice';
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
-import ServerError from '../../components/ServerError';
+import Message from '../../components/Message';
 import Meta from '../../components/Meta';
 
 const UserListPage = () => {
@@ -32,13 +32,15 @@ const UserListPage = () => {
   };
   return (
     <>
-      <Meta title={'User List'}/>
+      <Meta title={'User List'} />
       <h2>Users</h2>
       {isDeleteUserLoading && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError />
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <Table striped hover bordered responsive size='sm'>
           <thead>

@@ -16,12 +16,10 @@ import {
   useCreateProductReviewMutation
 } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
-import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import ServerError from '../components/ServerError';
 import Meta from '../components/Meta';
 import { addCurrency } from '../utils/addCurrency';
 
@@ -75,7 +73,9 @@ const ProductPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError />
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <Link to='/' className='btn btn-light my-3'>

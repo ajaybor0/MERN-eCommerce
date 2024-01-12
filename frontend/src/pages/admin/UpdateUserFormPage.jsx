@@ -8,7 +8,7 @@ import {
 } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
-import ServerError from '../../components/ServerError';
+import Message from '../../components/Message';
 import Meta from '../../components/Meta';
 
 const UpdateUserFormPage = () => {
@@ -54,7 +54,9 @@ const UpdateUserFormPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError />
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <FormContainer>
           <Meta title={'Update User'} />
