@@ -9,7 +9,7 @@ const getProducts = async (req, res, next) => {
   try {
     const total = await Product.countDocuments();
     const maxLimit = process.env.PAGINATION_MAX_LIMIT;
-    const maxSkip = total - 1;
+    const maxSkip = total === 0 ? 0 : total - 1;
     const limit = Number(req.query.limit) || maxLimit;
     const skip = Number(req.query.skip) || 0;
     const search = req.query.search || '';
