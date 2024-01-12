@@ -23,6 +23,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ServerError from '../components/ServerError';
 import Meta from '../components/Meta';
+import { addCurrency } from '../utils/addCurrency';
 
 const ProductPage = () => {
   const { id: productId } = useParams();
@@ -97,8 +98,7 @@ const ProductPage = () => {
                   />
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  Price: <FaIndianRupeeSign size={14} />
-                  {product.price}
+                  Price: {addCurrency(product.price)}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
@@ -112,8 +112,7 @@ const ProductPage = () => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <FaIndianRupeeSign size={14} />
-                        <strong>{product.price}</strong>
+                        <strong>{addCurrency(product.price)}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>

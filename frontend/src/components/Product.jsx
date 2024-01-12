@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
+import { addCurrency } from '../utils/addCurrency';
 
 const Product = ({ product }) => {
   return (
@@ -22,10 +23,7 @@ const Product = ({ product }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as='h3'>
-          <FaIndianRupeeSign size={14} />
-          {product.price}
-        </Card.Text>
+        <Card.Text as='h3'>{addCurrency(product.price)}</Card.Text>
       </Card.Body>
     </Card>
   );
