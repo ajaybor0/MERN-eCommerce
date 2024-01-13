@@ -21,12 +21,7 @@ import Meta from '../components/Meta';
 const OrderDetailsPage = () => {
   const { id: orderId } = useParams();
   // console.log(useGetOrderDetailsQuery());
-  const {
-    data: order,
-    refetch,
-    isLoading,
-    error
-  } = useGetOrderDetailsQuery(orderId);
+  const { data: order, isLoading, error } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder, { isLoading: isPayOrderLoading }] = usePayOrderMutation();
   const [updateDeliver, { isLoading: isUpdateDeliverLoading }] =
@@ -58,7 +53,6 @@ const OrderDetailsPage = () => {
         image: 'https://example.com/your_logo',
         order_id: razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async response => {
-          console.log(response);
           try {
             const { data } = await axios.post(
               `/api/v1/razorpay/order/validate`,
@@ -67,7 +61,6 @@ const OrderDetailsPage = () => {
             const details = { ...data, email: order?.user?.email };
             await payOrder({ orderId, details });
             toast.success(data.message);
-            refetch();
           } catch (error) {
             toast.error(error?.data?.message || error.error);
           }
@@ -107,7 +100,6 @@ const OrderDetailsPage = () => {
     try {
       await updateDeliver(orderId);
       toast.success('Order Delivered');
-      refetch();
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }

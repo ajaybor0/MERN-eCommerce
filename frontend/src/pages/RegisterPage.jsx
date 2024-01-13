@@ -6,7 +6,6 @@ import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
