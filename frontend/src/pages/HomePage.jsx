@@ -46,7 +46,9 @@ const HomePage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError />
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           {!search && <ProductCarousel />}

@@ -120,10 +120,12 @@ const OrderDetailsPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <ServerError />
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
-            <>
-              <Meta title={'Order Details'}/>
+        <>
+          <Meta title={'Order Details'} />
           <h1>Order ID: {orderId}</h1>
           <Row>
             <Col md={8}>
