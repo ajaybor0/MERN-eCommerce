@@ -10,6 +10,8 @@ import uploadRoutes from './routes/uploadRoutes.js';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import { protect, admin } from './middleware/authMiddleware.js';
 
@@ -19,8 +21,13 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
+
+// Use Helmet!
+app.use(helmet());
 // cors middleware
 app.use(cors());
+// compress all responses
+app.use(compression());
 //cookie parser middleware
 app.use(cookieParser());
 //application/json parser middleware
