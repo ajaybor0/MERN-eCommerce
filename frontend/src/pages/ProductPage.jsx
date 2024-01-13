@@ -34,7 +34,6 @@ const ProductPage = () => {
   const {
     data: product,
     isLoading,
-    refetch,
     error
   } = useGetProductDetailsQuery(productId);
 
@@ -60,7 +59,6 @@ const ProductPage = () => {
         toast.error(res.error?.data?.message);
       }
       toast.success(res.data.message);
-      refetch();
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }

@@ -18,7 +18,7 @@ const UpdateUserFormPage = () => {
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { data: user, refetch, isLoading, error } = useGetUserByIdQuery(userId);
+  const { data: user, isLoading, error } = useGetUserByIdQuery(userId);
 
   const [updateUser, { isLoading: isUpdateUserLoading }] =
     useUpdateUserMutation();
@@ -39,7 +39,6 @@ const UpdateUserFormPage = () => {
       const userData = { name, email, isAdmin };
       const { data } = await updateUser({ userId, ...userData });
       toast.success(data.message);
-      refetch();
       navigate('/admin/user-list');
     } catch (error) {
       toast.error(error?.data?.message || error.error);

@@ -17,7 +17,7 @@ const ProductListPage = () => {
   const [limit, setLimit] = useState(0);
   const [skip, setSkip] = useState(0);
 
-  const { data, refetch, isLoading, error } = useGetProductsQuery({
+  const { data, isLoading, error } = useGetProductsQuery({
     limit,
     skip
   });
@@ -27,7 +27,7 @@ const ProductListPage = () => {
 
   useEffect(() => {
     if (data) {
-      setLimit(4);
+      setLimit(8);
       setSkip((currentPage - 1) * limit);
       setTotal(data.total);
       setTotalPage(Math.ceil(total / limit));
@@ -37,7 +37,6 @@ const ProductListPage = () => {
   const deleteHandler = async productId => {
     try {
       const { data } = await deleteProduct(productId);
-      refetch();
       toast.success(data.message);
     } catch (error) {
       toast.error(error?.data?.message || error.error);

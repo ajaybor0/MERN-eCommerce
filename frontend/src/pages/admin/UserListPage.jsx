@@ -13,18 +13,13 @@ import Message from '../../components/Message';
 import Meta from '../../components/Meta';
 
 const UserListPage = () => {
-  const { data: users, refetch, isLoading, error } = useGetUsersQuery();
+  const { data: users, isLoading, error } = useGetUsersQuery();
   const [deleteUser, { isLoading: isDeleteUserLoading }] =
     useDeleteUserMutation();
-
-  useEffect(() => {
-    refetch();
-  }, [refetch, users]);
 
   const deleteHandler = async userId => {
     try {
       const { data } = await deleteUser(userId);
-      refetch();
       toast.success(data.message);
     } catch (error) {
       toast.error(error?.data?.message || error.error);

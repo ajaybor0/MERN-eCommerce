@@ -9,12 +9,7 @@ import Message from '../../components/Message';
 import Meta from '../../components/Meta';
 
 const OrderListsPage = () => {
-  const { data: orders, refetch, isLoading, error } = useGetOrdersQuery();
-
-  useEffect(() => {
-    refetch();
-  }, [refetch, orders]);
-
+  const { data: orders, isLoading, error } = useGetOrdersQuery();
   return (
     <>
       <Meta title={'Order List'} />

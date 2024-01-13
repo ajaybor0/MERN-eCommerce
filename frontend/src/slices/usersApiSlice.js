@@ -8,55 +8,64 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/login`,
         method: 'POST',
         body: data
-      })
+      }),
+      invalidatesTags: ['User']
     }),
     logout: builder.mutation({
       query: () => ({
         url: `${USERS_URL}/logout`,
         method: 'POST'
-      })
+      }),
+      invalidatesTags: ['User']
     }),
     register: builder.mutation({
       query: data => ({
         url: `${USERS_URL}`,
         method: 'POST',
         body: data
-      })
+      }),
+      invalidatesTags: ['User']
     }),
     profile: builder.mutation({
       query: data => ({
         url: `${USERS_URL}/profile`,
         method: 'PUT',
         body: data
-      })
+      }),
+      invalidatesTags: ['User']
     }),
     getUserProfile: builder.query({
       query: async () => ({
         url: `${USERS_URL}/profile`
-      })
+      }),
+      providesTags: ['User']
     }),
     getUsers: builder.query({
       query: () => ({
         url: USERS_URL
-      })
+      }),
+      providesTags: ['User']
     }),
     getUserById: builder.query({
       query: userId => ({
         url: `${USERS_URL}/${userId}`
-      })
+      }),
+      providesTags: ['User']
     }),
     deleteUser: builder.mutation({
       query: userId => ({
         url: `${USERS_URL}/${userId}`,
         method: 'DELETE'
-      })
+      }),
+      invalidatesTags: ['User']
     }),
     updateUser: builder.mutation({
       query: ({ userId, ...userData }) => ({
         url: `${USERS_URL}/${userId}`,
         method: 'PUT',
         body: { ...userData }
-      })
+      }),
+      invalidatesTags: ['User']
     })
   })
 });
