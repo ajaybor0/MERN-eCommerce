@@ -146,17 +146,15 @@ const ProductPage = () => {
                       </Row>
                     </ListGroup.Item>
                   )}
-                  <ListGroup.Item>
-                    <Button
-                      className='btn-block'
-                      type='button'
-                      disabled={product.countInStock === 0}
-                      onClick={addToCartHandler}
-                    >
-                      Add To Cart
-                    </Button>
-                  </ListGroup.Item>
                 </ListGroup>
+                <Button
+                  variant='warning'
+                  type='button'
+                  disabled={product.countInStock === 0}
+                  onClick={addToCartHandler}
+                >
+                  <strong> Add To Cart</strong>
+                </Button>
               </Card>
             </Col>
           </Row>
