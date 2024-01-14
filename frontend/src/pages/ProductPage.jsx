@@ -99,7 +99,8 @@ const ProductPage = () => {
                   Price: {addCurrency(product.price)}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  Description: {product.description}
+                  <strong> About this item:</strong>
+                  {product.description}
                 </ListGroup.Item>
               </ListGroup>
             </Col>

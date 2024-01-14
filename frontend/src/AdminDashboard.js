@@ -24,10 +24,10 @@ const AdminDashboard = () => {
       <main className='py-3 position-relative'>
         <Container fluid>
           <Row>
-            <Col md={3}>
+            <Col md={2}>
               <Card
                 className='d-none d-md-block bg-light'
-                style={{ height: '80vh' }}
+                style={{ height: '100vh' }}
               >
                 <Navbar>
                   <Nav className='d-flex flex-column '>
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
                 </Navbar>
               </Card>
             </Col>
-            <Col md={9}>
+            <Col md={10}>
               <Outlet />
             </Col>
           </Row>

@@ -17,6 +17,7 @@ import ServerError from '../components/ServerError';
 
 import axios from 'axios';
 import Meta from '../components/Meta';
+import { addCurrency } from '../utils/addCurrency';
 // import { RAZORPAY_URL } from '../constants';
 const OrderDetailsPage = () => {
   const { id: orderId } = useParams();
@@ -72,7 +73,7 @@ const OrderDetailsPage = () => {
           // contact: '9000090000' //Provide the customer's phone number for better conversion rates
         },
         notes: {
-          address: 'Razorpay Corporate Office'
+          address: 'MERN Shop Office'
         },
         theme: {
           color: '#3399cc'
@@ -179,9 +180,8 @@ const OrderDetailsPage = () => {
                             <Link to={`/product/${item._id}`}>{item.name}</Link>
                           </Col>
                           <Col md={4}>
-                            {item.qty} x <FaIndianRupeeSign size={14} />
-                            {item.price} = <FaIndianRupeeSign size={14} />
-                            {item.qty * item.price}
+                            {item.qty} x {addCurrency(item.price)} =
+                            {addCurrency(item.qty * item.price)}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -199,37 +199,25 @@ const OrderDetailsPage = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Items:</Col>
-                      <Col>
-                        <FaIndianRupeeSign size={14} />
-                        {order?.itemsPrice}
-                      </Col>
+                      <Col>{addCurrency(order?.itemsPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
                       <Col>Shipping:</Col>
-                      <Col>
-                        <FaIndianRupeeSign size={14} />
-                        {order?.shippingPrice}
-                      </Col>
+                      <Col>{addCurrency(order?.shippingPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
                       <Col>Tax:</Col>
-                      <Col>
-                        <FaIndianRupeeSign size={14} />
-                        {order?.taxPrice}
-                      </Col>
+                      <Col>{addCurrency(order?.taxPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
                       <Col>Total:</Col>
-                      <Col>
-                        <FaIndianRupeeSign size={14} />
-                        {order?.totalPrice}
-                      </Col>
+                      <Col>{addCurrency(order?.totalPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
                   {!order?.isPaid && !userInfo.isAdmin && (

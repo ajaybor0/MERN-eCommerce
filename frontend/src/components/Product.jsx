@@ -2,7 +2,6 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
-import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { addCurrency } from '../utils/addCurrency';
 
 const Product = ({ product }) => {
@@ -26,7 +25,7 @@ const Product = ({ product }) => {
           <Card.Text as='div' className='mb-3'>
             <Rating
               value={product.rating}
-              text={`${product.numReviews} reviews`}
+              text={`(${product.numReviews} reviews)`}
             />
           </Card.Text>
           <Card.Text as='h3'>{addCurrency(product.price)}</Card.Text>
