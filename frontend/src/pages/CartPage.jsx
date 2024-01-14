@@ -53,7 +53,13 @@ const CartPage = () => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item._id}`}>{item.name}</Link>
+                    <Link
+                      to={`/product/${item._id}`}
+                      className='product-title text-dark'
+                      style={{ textDecoration: 'none' }}
+                    >
+                      {item.name}
+                    </Link>
                   </Col>
                   <Col md={2}>{addCurrency(item.price)}</Col>
                   <Col md={2}>
@@ -101,17 +107,15 @@ const CartPage = () => {
                     )
                   )}
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  <Button
-                    className='btn-block'
-                    type='button'
-                    disabled={cartItems.length === 0}
-                    onClick={checkoutHandler}
-                  >
-                    Proceed To Checkout
-                  </Button>
-                </ListGroup.Item>
               </ListGroup>
+              <Button
+                variant='warning'
+                type='button'
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                <strong> Proceed To Checkout</strong>
+              </Button>
             </Card>
           )}
         </Col>
