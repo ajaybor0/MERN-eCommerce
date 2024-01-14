@@ -46,6 +46,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['User']
     }),
+    admins: builder.query({
+      query: () => ({
+        url: `${USERS_URL}/admins`
+      }),
+      providesTags: ['User']
+    }),
     getUserById: builder.query({
       query: userId => ({
         url: `${USERS_URL}/${userId}`
@@ -79,5 +85,6 @@ export const {
   useGetUsersQuery,
   useDeleteUserMutation,
   useUpdateUserMutation,
-  useGetUserByIdQuery
+  useGetUserByIdQuery,
+  useAdminsQuery
 } = usersApiSlice;

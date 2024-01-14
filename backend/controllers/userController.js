@@ -116,6 +116,24 @@ const getUserProfile = async (req, res, next) => {
   }
 };
 
+// @desc     Get admins
+// @method   GET
+// @endpoint /api/users/admins
+// @access   Private/Admin
+const admins = async (req, res, next) => {
+  try {
+    const admins = await User.find({ isAdmin: true });
+
+    if (!admins || admins.length === 0) {
+      res.statusCode = 404;
+      throw new Error('No admins found!');
+    }
+    res.status(200).json(admins);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc     Get users
 // @method   GET
 // @endpoint /api/users
@@ -245,5 +263,6 @@ export {
   getUserById,
   updateUser,
   updateUserProfile,
-  deleteUser
+  deleteUser,
+  admins
 };
