@@ -6,12 +6,7 @@ const Loader = () => {
   return (
     <Modal.Dialog className=' position-absolute top-50 start-50 translate-middle '>
       <Modal.Body>
-        <Spinner
-          animation='border'
-          role='status'
-          style={{ width: '100px', height: '100px' }}
-          variant='primary'
-        />
+        <Spinner animation='border' role='status' variant='secondary' />
       </Modal.Body>
     </Modal.Dialog>
   );

@@ -43,8 +43,7 @@ const UserListPage = () => {
               <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>ADMIN</th>
-              <th></th>
+              <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -53,13 +52,6 @@ const UserListPage = () => {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>
-                  {user.isAdmin ? (
-                    <FaCheck style={{ color: 'green' }} />
-                  ) : (
-                    <FaXmark style={{ color: 'red' }} />
-                  )}
-                </td>
                 <td>
                   <LinkContainer to={`/admin/user/update/${user._id}`}>
                     <Button className='btn-sm' variant='light'>
