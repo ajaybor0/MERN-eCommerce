@@ -36,43 +36,78 @@ const Sidebar = () => {
     <>
       <LinkContainer to='/admin/dashboard'>
         <Nav.Link>
-          <FaGauge style={{ marginRight: '5px' }} size={16} />
-          Dashboard
+          <strong>
+            <FaGauge
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+              size={16}
+            />
+            Dashboard
+          </strong>
         </Nav.Link>
       </LinkContainer>
       <LinkContainer to='/admin/product-list'>
         <Nav.Link>
-          <FaTable style={{ marginRight: '5px' }} size={16} />
-          Products
+          <strong>
+            <FaTable
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+              size={16}
+            />
+            Products
+          </strong>
         </Nav.Link>
       </LinkContainer>
       <LinkContainer to='/admin/order-list'>
         <Nav.Link>
-          <FaCartShopping style={{ marginRight: '5px' }} size={16} />
-          Orders
+          <strong>
+            <FaCartShopping
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+              size={16}
+            />
+            Orders
+          </strong>
         </Nav.Link>
       </LinkContainer>
       <LinkContainer to='/admin/user-list'>
         <Nav.Link>
-          <FaUsers style={{ marginRight: '5px' }} size={16} />
-          Users
+          <strong>
+            <FaUsers
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+              size={16}
+            />
+            Users
+          </strong>
         </Nav.Link>
       </LinkContainer>
       <LinkContainer to='/admin/admin-list'>
         <Nav.Link>
-          <FaUserGroup style={{ marginRight: '5px' }} size={16} />
-          Admins
+          <strong>
+            <FaUserGroup
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+              size={16}
+            />
+            Admins
+          </strong>
         </Nav.Link>
       </LinkContainer>
       <LinkContainer to='/admin/profile'>
         <Nav.Link>
-          <FaCircleUser style={{ marginRight: '5px' }} size={16} />
-          Profile
+          <strong>
+            <FaCircleUser
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+              size={16}
+            />
+            Profile
+          </strong>
         </Nav.Link>
       </LinkContainer>
       <Nav.Link onClick={logoutHandler}>
-        <FaPowerOff style={{ marginRight: '5px' }} size={16} />
-        Logout
+        <strong>
+          <FaPowerOff
+            style={{ marginRight: '5px', marginBottom: '2px' }}
+            size={16}
+          />
+          Logout
+        </strong>
       </Nav.Link>
     </>
   );

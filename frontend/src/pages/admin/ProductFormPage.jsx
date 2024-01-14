@@ -100,6 +100,7 @@ const ProductFormPage = () => {
 
   return (
     <>
+    <Meta title={'Product Form'} />
       <Link to='/admin/product-list' className='btn btn-light my-3'>
         Go Back
       </Link>

@@ -140,7 +140,7 @@ const admins = async (req, res, next) => {
 // @access   Private/Admin
 const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find({ isAdmin: false });
 
     if (!users || users.length === 0) {
       res.statusCode = 404;

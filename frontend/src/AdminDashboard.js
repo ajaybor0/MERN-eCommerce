@@ -27,10 +27,10 @@ const AdminDashboard = () => {
             <Col md={2}>
               <Card
                 className='d-none d-md-block bg-light'
-                style={{ height: '100vh' }}
+                style={{ height: '80vh' }}
               >
-                <Navbar>
-                  <Nav className='d-flex flex-column '>
+                <Navbar className='align-items-center justify-content-center'>
+                  <Nav className='d-flex  flex-column '>
                     <AdminSidebar />
                   </Nav>
                 </Navbar>
