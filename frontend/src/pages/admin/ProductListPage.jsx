@@ -9,6 +9,7 @@ import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
 import Message from '../../components/Message';
 import Meta from '../../components/Meta';
+import { addCurrency } from '../../utils/addCurrency';
 
 const ProductListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,10 +87,7 @@ const ProductListPage = () => {
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
-                <td>
-                  <FaRupeeSign />
-                  {product.price}
-                </td>
+                <td>{addCurrency(product.price)}</td>
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>

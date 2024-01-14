@@ -7,9 +7,12 @@ import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import Meta from '../../components/Meta';
+import { useSelector } from 'react-redux';
+import { addCurrency } from '../../utils/addCurrency';
 
 const OrderListsPage = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
+  const { userInfo } = useSelector(state => state.auth);
   return (
     <>
       <Meta title={'Order List'} />
@@ -39,10 +42,7 @@ const OrderListsPage = () => {
                 <td>{order.user._id}</td>
                 <td>{order.user.name}</td>
                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                <td>
-                  <FaIndianRupeeSign />
-                  {order.totalPrice}
-                </td>
+                <td>{addCurrency(order.totalPrice)}</td>
                 <td>
                   {order.isPaid ? (
                     <FaCheck style={{ color: 'green' }} />
@@ -58,7 +58,13 @@ const OrderListsPage = () => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/order/${order._id}`}>
+                  <LinkContainer
+                    to={
+                      userInfo.isAdmin
+                        ? `/admin/order/${order._id}`
+                        : `/order/${order._id}`
+                    }
+                  >
                     <Button className='btn-sm' variant='light'>
                       Details
                     </Button>

@@ -114,20 +114,24 @@ const router = createBrowserRouter([
             element: <ProductFormPage />
           },
           {
-            path: '/admin/product/update/:id',
-            element: <ProductFormPage />
-          },
-          {
-            path: '/admin/user/update/:id',
-            element: <UpdateUserFormPage />
-          },
-          {
             path: '/admin/profile',
             element: <AdminProfilePage />
           },
           {
             path: '/admin/admin-list',
             element: <AdminListPage />
+          },
+          {
+            path: '/admin/order/:id',
+            element: <OrderDetailsPage />
+          },
+          {
+            path: '/admin/user/update/:id',
+            element: <UpdateUserFormPage />
+          },
+          {
+            path: '/admin/product/update/:id',
+            element: <ProductFormPage />
           }
         ]
       }
