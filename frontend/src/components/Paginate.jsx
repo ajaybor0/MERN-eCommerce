@@ -4,7 +4,7 @@ import { Container, Pagination } from 'react-bootstrap';
 const Paginate = ({ currentPage, totalPage, pageHandler }) => {
   return (
     <Container className='d-flex justify-content-center'>
-      <Pagination>
+      <Pagination size='sm'>
         <Pagination.First
           onClick={() => pageHandler(1)}
           disabled={currentPage <= 1}

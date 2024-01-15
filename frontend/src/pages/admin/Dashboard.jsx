@@ -20,7 +20,7 @@ const Dashboard = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <Card className='my-3 p-3 rounded  '>
+          <Card className='my-3 p-3 rounded bg-info '>
             <Row className='align-items-center justify-content-center text-center'>
               <Col>
                 <Card.Body>
@@ -41,7 +41,7 @@ const Dashboard = () => {
         {isUsersLoading ? (
           <Loader />
         ) : (
-          <Card className='my-3 p-3 rounded '>
+          <Card className='my-3 p-3 rounded bg-info '>
             <Row className='align-items-center justify-content-center text-center'>
               <Col>
                 <Card.Body>
@@ -62,7 +62,7 @@ const Dashboard = () => {
         {isOrdersLoading ? (
           <Loader />
         ) : (
-          <Card className='my-3 p-3 rounded '>
+          <Card className='my-3 p-3 rounded bg-info '>
             <Row className='align-items-center justify-content-center text-center'>
               <Col>
                 <Card.Body>
@@ -83,7 +83,7 @@ const Dashboard = () => {
         {isAdminsLoading ? (
           <Loader />
         ) : (
-          <Card className='my-3 p-3 rounded '>
+          <Card className='my-3 p-3 rounded bg-info '>
             <Row className='align-items-center justify-content-center text-center'>
               <Col>
                 <Card.Body>

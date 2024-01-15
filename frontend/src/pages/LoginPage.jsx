@@ -80,8 +80,8 @@ const LoginPage = () => {
             </InputGroup>
           </Form.Group>
           <Button
-            className='mb-3'
-            variant='primary'
+            className='mb-3 w-100'
+            variant='warning'
             type='submit'
             disabled={isLoading}
           >

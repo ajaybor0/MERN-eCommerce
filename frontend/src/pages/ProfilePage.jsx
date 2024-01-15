@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
 import ProfileForm from '../components/ProfileForm';
+import { addCurrency } from '../utils/addCurrency';
 
 const ProfilePage = () => {
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
@@ -16,7 +17,7 @@ const ProfilePage = () => {
       <Row>
         <Col md={3}>
           <Meta title={'User Profile'} />
-          <h2>User Profile</h2>
+          <h2>My Profile</h2>
           <ProfileForm />
         </Col>
         <Col md={9}>
@@ -44,10 +45,7 @@ const ProfilePage = () => {
                   <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                    <td>
-                      <FaIndianRupeeSign />
-                      {order.totalPrice}
-                    </td>
+                    <td>{addCurrency(order.totalPrice)}</td>
                     <td>
                       {order.isPaid ? (
                         <FaCheck style={{ color: 'green' }} />
@@ -64,7 +62,7 @@ const ProfilePage = () => {
                     </td>
                     <td>
                       <LinkContainer to={`/order/${order._id}`}>
-                        <Button className='btn-sm' variant='light'>
+                        <Button className='btn-sm' variant='info'>
                           Details
                         </Button>
                       </LinkContainer>

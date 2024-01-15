@@ -79,7 +79,13 @@ const PlaceOrderPage = () => {
                         <Image src={item.image} alt={item.name} fluid rounded />
                       </Col>
                       <Col md={6}>
-                        <Link to={`/product/${item._id}`}>{item.name}</Link>
+                        <Link
+                          to={`/product/${item._id}`}
+                          className='product-title text-dark'
+                          style={{ textDecoration: 'none' }}
+                        >
+                          {item.name}
+                        </Link>
                       </Col>
                       <Col md={4}>
                         {item.qty} x {addCurrency(item.price)} ={' '}
@@ -124,7 +130,8 @@ const PlaceOrderPage = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
-                  className='btn-block'
+                  className='w-100'
+                  variant='warning'
                   disabled={cartItems.length === 0}
                   onClick={placeOrderHandler}
                 >

@@ -74,7 +74,7 @@ const ShippingPage = () => {
             onChange={e => setCountry(e.target.value)}
           />
         </Form.Group>
-        <Button className='mb-3' variant='primary' type='submit'>
+        <Button className='mb-3 w-100' variant='warning' type='submit'>
           Continue
         </Button>
       </Form>

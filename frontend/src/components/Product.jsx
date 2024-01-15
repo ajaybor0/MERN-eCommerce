@@ -47,7 +47,7 @@ const Product = ({ product }) => {
         disabled={product.countInStock === 0}
         onClick={addToCartHandler}
       >
-        <strong>Add To Cart</strong>
+        Add To Cart
       </Button>
     </Card>
   );

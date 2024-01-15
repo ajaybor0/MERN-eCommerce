@@ -19,7 +19,7 @@ const AdminListPage = () => {
         </Col>
         <Col className='text-end'>
           <LinkContainer to={'/admin/create'}>
-            <Button className='btn-sm my-3'>Add Admin</Button>
+            <Button className=' my-3' variant='warning'>Add Admin</Button>
           </LinkContainer>
         </Col>
       </Row>

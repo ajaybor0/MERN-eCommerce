@@ -65,7 +65,7 @@ const OrderListsPage = () => {
                         : `/order/${order._id}`
                     }
                   >
-                    <Button className='btn-sm' variant='light'>
+                    <Button className='btn-sm'  variant='info'>
                       Details
                     </Button>
                   </LinkContainer>

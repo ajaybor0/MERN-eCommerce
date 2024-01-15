@@ -103,7 +103,7 @@ const ProfileForm = () => {
           </InputGroup.Text>
         </InputGroup>
       </Form.Group>
-      <Button className='mb-3' variant='primary' type='submit'>
+      <Button className='mb-3 w-100' variant='warning' type='submit'>
         Update
       </Button>
       {isUpdateProfileLoading && <Loader />}

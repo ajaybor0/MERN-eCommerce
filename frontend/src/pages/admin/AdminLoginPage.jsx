@@ -86,7 +86,7 @@ const AdminLoginPage = () => {
               </Form.Group>
               <Button
                 className='my-3 w-100'
-                variant='primary'
+                variant='warning'
                 type='submit'
                 disabled={isLoading}
               >
