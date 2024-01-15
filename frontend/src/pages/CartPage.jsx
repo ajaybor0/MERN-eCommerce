@@ -9,7 +9,8 @@ import {
   ListGroup,
   Form,
   Image,
-  Button
+  Button,
+  ListGroupItem
 } from 'react-bootstrap';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 
@@ -83,7 +84,7 @@ const CartPage = () => {
                       variant='light'
                       onClick={() => removeFromCartHandler(item._id)}
                     >
-                      <FaTrash />
+                      <FaTrash style={{color:'red'}}/>
                     </Button>
                   </Col>
                 </Row>
@@ -107,15 +108,18 @@ const CartPage = () => {
                     )
                   )}
                 </ListGroup.Item>
+                <ListGroupItem>
+                  <Button
+                    className='w-100'
+                    variant='warning'
+                    type='button'
+                    disabled={cartItems.length === 0}
+                    onClick={checkoutHandler}
+                  >
+                    Proceed To Checkout
+                  </Button>
+                </ListGroupItem>
               </ListGroup>
-              <Button
-                variant='warning'
-                type='button'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-              >
-                <strong> Proceed To Checkout</strong>
-              </Button>
             </Card>
           )}
         </Col>

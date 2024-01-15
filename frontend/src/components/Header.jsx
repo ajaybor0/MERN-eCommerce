@@ -45,8 +45,15 @@ const Header = () => {
                   <FaShoppingCart style={{ marginRight: '5px' }} />
                   Cart
                   {cartItems.length > 0 && (
-                    <Badge pill bg='primary' style={{ marginLeft: '5px' }}>
-                      {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                    <Badge
+                      pill
+                      bg='warning'
+                      style={{ marginLeft: '5px' }}
+                      className='text-dark'
+                    >
+                      <strong>
+                        {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                      </strong>
                     </Badge>
                   )}
                 </Nav.Link>

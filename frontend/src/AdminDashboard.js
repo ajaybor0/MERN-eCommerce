@@ -26,7 +26,7 @@ const AdminDashboard = () => {
           <Row>
             <Col md={2}>
               <Card
-                className='d-none d-md-block bg-light'
+                className='d-none d-md-block bg-info'
                 style={{ height: '80vh' }}
               >
                 <Navbar className='align-items-center justify-content-center'>

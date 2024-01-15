@@ -129,10 +129,7 @@ const OrderDetailsPage = () => {
                     <strong>Name:</strong> {order?.user?.name}
                   </div>
                   <div className='mb-3'>
-                    <strong>Email:</strong>{' '}
-                    <Link to={`mailto:${order?.user?.email}`}>
-                      {order?.user?.email}
-                    </Link>
+                    <strong>Email:</strong> {order?.user?.email}
                   </div>
                   <div className='mb-3'>
                     <strong>Address:</strong> {order?.shippingAddress?.address},
@@ -177,7 +174,13 @@ const OrderDetailsPage = () => {
                             />
                           </Col>
                           <Col md={6}>
-                            <Link to={`/product/${item._id}`}>{item.name}</Link>
+                            <Link
+                              to={`/product/${item._id}`}
+                              className='product-title text-dark'
+                              style={{ textDecoration: 'none' }}
+                            >
+                              {item.name}
+                            </Link>
                           </Col>
                           <Col md={4}>
                             {item.qty} x {addCurrency(item.price)} =
@@ -223,6 +226,8 @@ const OrderDetailsPage = () => {
                   {!order?.isPaid && !userInfo.isAdmin && (
                     <ListGroup.Item>
                       <Button
+                        className='w-100'
+                        variant='warning'
                         onClick={paymentHandler}
                         style={{ marginBottom: '10px' }}
                       >

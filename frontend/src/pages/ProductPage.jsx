@@ -7,7 +7,8 @@ import {
   Button,
   Image,
   Card,
-  Form
+  Form,
+  ListGroupItem
 } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -146,15 +147,18 @@ const ProductPage = () => {
                       </Row>
                     </ListGroup.Item>
                   )}
+                  <ListGroupItem>
+                    <Button
+                      className='w-100'
+                      variant='warning'
+                      type='button'
+                      disabled={product.countInStock === 0}
+                      onClick={addToCartHandler}
+                    >
+                      Add To Cart
+                    </Button>
+                  </ListGroupItem>
                 </ListGroup>
-                <Button
-                  variant='warning'
-                  type='button'
-                  disabled={product.countInStock === 0}
-                  onClick={addToCartHandler}
-                >
-                  <strong> Add To Cart</strong>
-                </Button>
               </Card>
             </Col>
           </Row>

@@ -59,7 +59,7 @@ const ProductListPage = () => {
         </Col>
         <Col className='text-end'>
           <LinkContainer to={'/admin/product/create'}>
-            <Button className='btn-sm my-3'>Add Product</Button>
+            <Button className=' my-3' variant='warning'>Add Product</Button>
           </LinkContainer>
         </Col>
       </Row>
