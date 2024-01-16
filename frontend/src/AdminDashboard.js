@@ -21,16 +21,16 @@ const AdminDashboard = () => {
   return (
     <>
       <AdminHeader />
-      <main className='py-3 position-relative'>
+      <main className='py-3 position-relative bg-light'>
         <Container fluid>
           <Row>
             <Col md={2}>
               <Card
-                className='d-none d-md-block bg-info'
-                style={{ height: '80vh' }}
+                className='d-none d-md-block bg-dark '
+                style={{ height: '100vh' }}
               >
-                <Navbar className='align-items-center justify-content-center'>
-                  <Nav className='d-flex  flex-column '>
+                <Navbar className='align-items-center' variant='dark'>
+                  <Nav className='d-flex  flex-column ms-3'>
                     <AdminSidebar />
                   </Nav>
                 </Navbar>

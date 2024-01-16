@@ -38,7 +38,7 @@ const Sidebar = () => {
         <Nav.Link>
           <strong>
             <FaGauge
-              style={{ marginRight: '5px', marginBottom: '2px' }}
+              style={{ marginRight: '10px', marginBottom: '3px' }}
               size={16}
             />
             Dashboard
@@ -49,7 +49,7 @@ const Sidebar = () => {
         <Nav.Link>
           <strong>
             <FaTable
-              style={{ marginRight: '5px', marginBottom: '2px' }}
+              style={{ marginRight: '10px', marginBottom: '3px' }}
               size={16}
             />
             Products
@@ -60,7 +60,7 @@ const Sidebar = () => {
         <Nav.Link>
           <strong>
             <FaCartShopping
-              style={{ marginRight: '5px', marginBottom: '2px' }}
+              style={{ marginRight: '10px', marginBottom: '3px' }}
               size={16}
             />
             Orders
@@ -71,7 +71,7 @@ const Sidebar = () => {
         <Nav.Link>
           <strong>
             <FaUsers
-              style={{ marginRight: '5px', marginBottom: '2px' }}
+              style={{ marginRight: '10px', marginBottom: '3px' }}
               size={16}
             />
             Users
@@ -82,7 +82,7 @@ const Sidebar = () => {
         <Nav.Link>
           <strong>
             <FaUserGroup
-              style={{ marginRight: '5px', marginBottom: '2px' }}
+              style={{ marginRight: '10px', marginBottom: '3px' }}
               size={16}
             />
             Admins
@@ -93,7 +93,7 @@ const Sidebar = () => {
         <Nav.Link>
           <strong>
             <FaCircleUser
-              style={{ marginRight: '5px', marginBottom: '2px' }}
+              style={{ marginRight: '10px', marginBottom: '3px' }}
               size={16}
             />
             Profile
@@ -103,7 +103,7 @@ const Sidebar = () => {
       <Nav.Link onClick={logoutHandler}>
         <strong>
           <FaPowerOff
-            style={{ marginRight: '5px', marginBottom: '2px' }}
+            style={{ marginRight: '10px', marginBottom: '3px' }}
             size={16}
           />
           Logout
