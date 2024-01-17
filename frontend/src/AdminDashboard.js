@@ -24,19 +24,19 @@ const AdminDashboard = () => {
       <main className='py-3 position-relative bg-light'>
         <Container fluid>
           <Row>
-            <Col md={2}>
+            <Col md={3} lg={2}>
               <Card
                 className='d-none d-md-block bg-dark '
                 style={{ height: '100vh' }}
               >
                 <Navbar className='align-items-center' variant='dark'>
-                  <Nav className='d-flex  flex-column ms-3'>
+                  <Nav className='d-flex  flex-column px-2'>
                     <AdminSidebar />
                   </Nav>
                 </Navbar>
               </Card>
             </Col>
-            <Col md={10}>
+            <Col md={9} lg={10}>
               <Outlet />
             </Col>
           </Row>

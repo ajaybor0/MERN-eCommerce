@@ -28,7 +28,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (data) {
-      setLimit(8);
+      setLimit(4);
       setSkip((currentPage - 1) * limit);
       setTotal(data.total);
       setTotalPage(Math.ceil(total / limit));
