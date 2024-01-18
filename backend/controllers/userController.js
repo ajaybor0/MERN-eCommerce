@@ -28,7 +28,7 @@ const loginUser = async (req, res, next) => {
       );
     }
 
-    generateToken(res, user._id);
+    generateToken(req, res, user._id);
 
     res.status(200).json({
       message: 'Login successful.',
@@ -67,7 +67,7 @@ const registerUser = async (req, res, next) => {
 
     await user.save();
 
-    generateToken(res, user._id);
+    generateToken(req, res, user._id);
 
     res.status(201).json({
       message: 'Registration successful. Welcome!',

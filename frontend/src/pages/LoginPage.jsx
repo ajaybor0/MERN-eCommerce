@@ -14,6 +14,8 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ const LoginPage = () => {
   const submitHandler = async e => {
     e.preventDefault();
     try {
-      const res = await login({ email, password }).unwrap();
+      const res = await login({ email, password, remember }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
       toast.success('Login successful');
@@ -79,6 +81,14 @@ const LoginPage = () => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
+          <Form.Group className='mb-3' controlId='checkbox'>
+            <Form.Check
+              type='checkbox'
+              label='Keep me signed in.'
+              checked={remember}
+              onChange={() => setRemember(!remember)}
+            />
+          </Form.Group>
           <Button
             className='mb-3 w-100'
             variant='warning'
@@ -100,7 +110,6 @@ const LoginPage = () => {
           </Col>
         </Row>
       </FormContainer>
-      {isLoading && <Loader />}
     </>
   );
 };

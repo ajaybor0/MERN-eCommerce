@@ -111,8 +111,6 @@ const OrderDetailsPage = () => {
 
   return (
     <>
-      {isPayOrderLoading && <Loader />}
-      {isUpdateDeliverLoading && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -232,6 +230,7 @@ const OrderDetailsPage = () => {
                         className='w-100'
                         variant='warning'
                         onClick={paymentHandler}
+                        disabled={isPayOrderLoading}
                         style={{ marginBottom: '10px' }}
                       >
                         Pay Order
@@ -245,6 +244,8 @@ const OrderDetailsPage = () => {
                       <ListGroup.Item>
                         <Button
                           onClick={deliveredHandler}
+                          variant='warning'
+                          disabled={isUpdateDeliverLoading}
                           style={{ marginBottom: '10px' }}
                         >
                           Mark As Delivered

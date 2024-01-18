@@ -61,7 +61,7 @@ const RegisterPage = () => {
 
   return (
     <FormContainer>
-      <Meta title={'Register'}/>
+      <Meta title={'Register'} />
       <h1>Register</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className='mb-3' controlId='name'>
@@ -118,10 +118,14 @@ const RegisterPage = () => {
             </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-        <Button className='mb-3 w-100' variant='warning' type='submit'>
+        <Button
+          className='mb-3 w-100'
+          variant='warning'
+          type='submit'
+          disabled={isLoading}
+        >
           Register
         </Button>
-        {isLoading && <Loader />}
       </Form>
       <Row>
         <Col>

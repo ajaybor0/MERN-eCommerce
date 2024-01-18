@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
-export const generateToken = (res, userId) => {
+export const generateToken = (req, res, userId) => {
   // Generating a JWT token for the authenticated user
   const token = jwt.sign(
     { userId },
     process.env.JWT_SECRET,
-    { expiresIn: '30d' },
+    { expiresIn: req.body.remember ? 365 * 24 + 'h' : '24h' },
     { algorithm: 'RS256' }
   );
 
@@ -14,6 +14,6 @@ export const generateToken = (res, userId) => {
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development',
     sameSite: 'strict',
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 Days
+    maxAge: req.body.remember ? 365 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000
   });
 };
