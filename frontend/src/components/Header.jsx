@@ -29,52 +29,57 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
-        <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand>MERN Shop</Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ms-auto m-2'>
-              <SearchBox />
-              <LinkContainer to='/cart'>
+    <Navbar
+      bg='dark'
+      variant='dark'
+      expand='md'
+      collapseOnSelect
+      className='fixed-top w-100 z-2 '
+    >
+      <Container>
+        <LinkContainer to='/'>
+          <Navbar.Brand>MERN Shop</Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className='ms-auto m-2'>
+            <SearchBox />
+            <LinkContainer to='/cart'>
+              <Nav.Link>
+                <FaShoppingCart style={{ marginRight: '5px' }} />
+                Cart
+                {cartItems.length > 0 && (
+                  <Badge
+                    pill
+                    bg='warning'
+                    style={{ marginLeft: '5px' }}
+                    className='text-dark'
+                  >
+                    <strong>
+                      {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                    </strong>
+                  </Badge>
+                )}
+              </Nav.Link>
+            </LinkContainer>
+            {userInfo ? (
+              <NavDropdown title={`Hello👋, ${userInfo.name}`} id='username'>
+                <LinkContainer to='/profile'>
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <LinkContainer to='/login'>
                 <Nav.Link>
-                  <FaShoppingCart style={{ marginRight: '5px' }} />
-                  Cart
-                  {cartItems.length > 0 && (
-                    <Badge
-                      pill
-                      bg='warning'
-                      style={{ marginLeft: '5px' }}
-                      className='text-dark'
-                    >
-                      <strong>
-                        {cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                      </strong>
-                    </Badge>
-                  )}
+                  <FaUser style={{ marginRight: '5px' }} />
+                  Sign In
                 </Nav.Link>
               </LinkContainer>
-              {userInfo ? (
-                <NavDropdown title={`Hello👋, ${userInfo.name}`} id='username'>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <FaUser style={{ marginRight: '5px' }} />
-                    Sign In
-                  </Nav.Link>
-                </LinkContainer>
-              )}
-              {/* {userInfo && userInfo.isAdmin && (
+            )}
+            {/* {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin' id='adminmenu'>
                   <LinkContainer to='/admin/product-list'>
                     <NavDropdown.Item>Products</NavDropdown.Item>
@@ -87,11 +92,10 @@ const Header = () => {
                   </LinkContainer>
                 </NavDropdown>
               )} */}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </header>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 

@@ -34,7 +34,7 @@ const Sidebar = () => {
   };
   return (
     <>
-      <LinkContainer to='/admin/dashboard'>
+      <LinkContainer to='/admin/dashboard' className='mb-2'>
         <Nav.Link>
           <strong>
             <FaGauge
@@ -45,7 +45,7 @@ const Sidebar = () => {
           </strong>
         </Nav.Link>
       </LinkContainer>
-      <LinkContainer to='/admin/product-list'>
+      <LinkContainer to='/admin/product-list' className='mb-2'>
         <Nav.Link>
           <strong>
             <FaTable
@@ -56,7 +56,7 @@ const Sidebar = () => {
           </strong>
         </Nav.Link>
       </LinkContainer>
-      <LinkContainer to='/admin/order-list'>
+      <LinkContainer to='/admin/order-list' className='mb-2'>
         <Nav.Link>
           <strong>
             <FaCartShopping
@@ -67,7 +67,7 @@ const Sidebar = () => {
           </strong>
         </Nav.Link>
       </LinkContainer>
-      <LinkContainer to='/admin/user-list'>
+      <LinkContainer to='/admin/user-list' className='mb-2'>
         <Nav.Link>
           <strong>
             <FaUsers
@@ -78,7 +78,7 @@ const Sidebar = () => {
           </strong>
         </Nav.Link>
       </LinkContainer>
-      <LinkContainer to='/admin/admin-list'>
+      <LinkContainer to='/admin/admin-list' className='mb-2'>
         <Nav.Link>
           <strong>
             <FaUserGroup
@@ -89,7 +89,7 @@ const Sidebar = () => {
           </strong>
         </Nav.Link>
       </LinkContainer>
-      <LinkContainer to='/admin/profile'>
+      <LinkContainer to='/admin/profile' className='mb-2'>
         <Nav.Link>
           <strong>
             <FaCircleUser

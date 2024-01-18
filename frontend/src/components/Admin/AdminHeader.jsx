@@ -8,7 +8,13 @@ const AdminHeader = () => {
   const { userInfo } = useSelector(state => state.auth);
 
   return (
-    <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
+    <Navbar
+      bg='dark'
+      variant='dark'
+      expand='md'
+      collapseOnSelect
+      className='fixed-top'
+    >
       <Container fluid>
         <LinkContainer to='/admin/dashboard'>
           <Navbar.Brand>MERN Shop Admin</Navbar.Brand>
