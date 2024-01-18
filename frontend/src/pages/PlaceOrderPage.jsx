@@ -132,7 +132,7 @@ const PlaceOrderPage = () => {
                 <Button
                   className='w-100'
                   variant='warning'
-                  disabled={cartItems.length === 0}
+                  disabled={cartItems.length === 0 || isLoading}
                   onClick={placeOrderHandler}
                 >
                   Place Order
@@ -142,7 +142,6 @@ const PlaceOrderPage = () => {
           </Card>
         </Col>
       </Row>
-      {isLoading && <Loader />}
     </>
   );
 };
