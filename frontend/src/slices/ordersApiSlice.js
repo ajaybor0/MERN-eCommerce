@@ -40,7 +40,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
     }),
     getRazorpayApiKey: builder.query({
       query: () => ({
-        url: RAZORPAY_URL
+        url: `${RAZORPAY_URL}/razorpay/config`
       }),
       providesTags: ['Order']
     }),

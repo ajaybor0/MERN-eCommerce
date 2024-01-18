@@ -35,12 +35,16 @@ const OrderDetailsPage = () => {
   const paymentHandler = async e => {
     try {
       // Make the API call to Razorpay
+
       const razorpayData = {
         amount: order.totalPrice * 100, // Razorpay expects the amount in paisa, so multiply by 100
         currency: 'INR',
         receipt: `receipt#${orderId}`
       };
-      const { data } = await axios.post('/api/v1/razorpay/order', razorpayData);
+      const { data } = await axios.post(
+        '/api/v1/payment/razorpay/order',
+        razorpayData
+      );
 
       const { id: razorpayOrderId } = data;
 
@@ -50,12 +54,12 @@ const OrderDetailsPage = () => {
         currency: razorpayData.currency,
         name: 'MERN Shop', //your business name
         description: 'Test Transaction',
-        image: '/frontend/public/favicon-32x32.png',
+        image: 'https://example.com/your_logo',
         order_id: razorpayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async response => {
           try {
             const { data } = await axios.post(
-              `/api/v1/razorpay/order/validate`,
+              `/api/v1/payment/razorpay/order/validate`,
               response
             );
             const details = { ...data, email: order?.user?.email };
@@ -68,14 +72,14 @@ const OrderDetailsPage = () => {
         prefill: {
           //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
           name: order?.user?.name, //your customer's name
-          email: order?.user?.email,
-          contact: '9000090000' //Provide the customer's phone number for better conversion rates
+          email: order?.user?.email
+          // contact: '9000090000' //Provide the customer's phone number for better conversion rates
         },
         notes: {
           address: 'MERN Shop Office'
         },
         theme: {
-          color: '#FFC516'
+          color: '#FFC107'
         }
       };
       var rzp1 = new window.Razorpay(options);
