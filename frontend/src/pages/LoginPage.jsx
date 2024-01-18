@@ -49,68 +49,66 @@ const LoginPage = () => {
     }
   };
   return (
-    <>
-      <FormContainer>
-        <Meta title={'Sign In'} />
-        <h1>Sign In</h1>
-        <Form onSubmit={submitHandler}>
-          <Form.Group className='mb-3' controlId='email'>
-            <Form.Label>Email address</Form.Label>
+    <FormContainer>
+      <Meta title={'Sign In'} />
+      <h1>Sign In</h1>
+      <Form onSubmit={submitHandler}>
+        <Form.Group className='mb-3' controlId='email'>
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type='email'
+            value={email}
+            placeholder='Enter email'
+            onChange={e => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className='mb-3' controlId='password'>
+          <Form.Label>Password</Form.Label>
+          <InputGroup>
             <Form.Control
-              type='email'
-              value={email}
-              placeholder='Enter email'
-              onChange={e => setEmail(e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              placeholder='Enter password'
+              onChange={e => setPassword(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group className='mb-3' controlId='password'>
-            <Form.Label>Password</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                placeholder='Enter password'
-                onChange={e => setPassword(e.target.value)}
-              />
-              <InputGroup.Text
-                onClick={togglePasswordVisibility}
-                id='togglePasswordVisibility'
-                style={{ cursor: 'pointer' }}
-              >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
-              </InputGroup.Text>
-            </InputGroup>
-          </Form.Group>
-          <Form.Group className='mb-3' controlId='checkbox'>
-            <Form.Check
-              type='checkbox'
-              label='Keep me signed in.'
-              checked={remember}
-              onChange={() => setRemember(!remember)}
-            />
-          </Form.Group>
-          <Button
-            className='mb-3 w-100'
-            variant='warning'
-            type='submit'
-            disabled={isLoading}
-          >
-            Sign In
-          </Button>
-        </Form>
-        <Row>
-          <Col>
-            New Customer?
-            <Link
-              to={redirect ? `/register?redirect=${redirect}` : '/register'}
-              className=' mx-2'
+            <InputGroup.Text
+              onClick={togglePasswordVisibility}
+              id='togglePasswordVisibility'
+              style={{ cursor: 'pointer' }}
             >
-              Register
-            </Link>
-          </Col>
-        </Row>
-      </FormContainer>
-    </>
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </InputGroup.Text>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group className='mb-3' controlId='checkbox'>
+          <Form.Check
+            type='checkbox'
+            label='Keep me signed in.'
+            checked={remember}
+            onChange={() => setRemember(!remember)}
+          />
+        </Form.Group>
+        <Button
+          className='mb-3 w-100'
+          variant='warning'
+          type='submit'
+          disabled={isLoading}
+        >
+          Sign In
+        </Button>
+      </Form>
+      <Row>
+        <Col>
+          New Customer?
+          <Link
+            to={redirect ? `/register?redirect=${redirect}` : '/register'}
+            className=' mx-2'
+          >
+            Register
+          </Link>
+        </Col>
+      </Row>
+    </FormContainer>
   );
 };
 

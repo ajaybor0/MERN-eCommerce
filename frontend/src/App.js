@@ -8,16 +8,16 @@ import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <>
+    <div className='position-relative'>
       <Header />
-      <main className='py-3 position-relative'>
+      <main>
         <Container>
           <Outlet />
         </Container>
       </main>
       <Footer />
       <ToastContainer autoClose={1000} />
-    </>
+    </div>
   );
 };
 
