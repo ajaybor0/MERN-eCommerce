@@ -1,10 +1,7 @@
-import path from 'path';
 import express from 'express';
 import multer from 'multer';
 
 const router = express.Router();
-
-export default router;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -38,3 +35,5 @@ router.post('/', upload, (req, res) => {
     imageUrl: `/${req.file.path}`
   });
 });
+
+export default router;
