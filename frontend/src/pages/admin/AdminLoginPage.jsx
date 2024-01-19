@@ -52,10 +52,9 @@ const AdminLoginPage = () => {
   return (
     <>
       <main className='d-flex position-relative flex-column justify-content-center align-items-center '>
-        {isLoading && <Loader />}
         <Meta title={'Admin Sign In'} />
         <FormContainer>
-          <Card className='p-5 '>
+          <Card className='p-3 p-md-5 '>
             <h1 className='mb-5 text-center'>Sign In</h1>
             <Form onSubmit={submitHandler}>
               <Form.Group className='mb-3' controlId='email'>
@@ -106,7 +105,6 @@ const AdminLoginPage = () => {
         </FormContainer>
       </main>
       <Footer />
-      <ToastContainer autoClose={1000} />
     </>
   );
 };

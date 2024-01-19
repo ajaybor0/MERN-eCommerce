@@ -34,7 +34,7 @@ const Header = () => {
       variant='dark'
       expand='md'
       collapseOnSelect
-      className='fixed-top w-100 z-2 '
+      className='fixed-top z-2 '
     >
       <Container>
         <LinkContainer to='/'>
