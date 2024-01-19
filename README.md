@@ -26,8 +26,19 @@ Welcome to the eCommerce Platform Project built using the MERN (MongoDB, Express
 
 ### Prerequisites
 
-1. Create a MongoDB database and obtain your MongoDB URI from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-2. Create a Razorpay account and obtain your Key ID and Key Secret from [Razorpay](https://razorpay.com/).
+1. Fork the repository to your GitHub account.
+2. Clone the forked repository to your local machine
+
+```bash
+git clone https://github.com/your-username/MERN-eCommerce.git
+```
+
+```bash
+cd MERN-eCommerce
+```
+
+3. Create a MongoDB database and obtain your MongoDB URI from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+4. Create a Razorpay account and obtain your Key ID and Key Secret from [Razorpay](https://razorpay.com/).
 
 ### Env Variables
 
