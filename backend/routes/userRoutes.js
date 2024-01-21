@@ -49,7 +49,7 @@ router.post('/logout', protect, logoutUser);
 router
   .route('/profile')
   .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+  .put(validator.checkNewUser, validateRequest, protect, updateUserProfile);
 
 router
   .route('/:id')
