@@ -1,5 +1,7 @@
 import express from 'express';
+import { check } from 'express-validator';
 import multer from 'multer';
+import validateRequest from '../middleware/validator.js';
 
 const router = express.Router();
 
@@ -28,7 +30,13 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter }).single('image');
 
-router.post('/', upload, (req, res) => {
+const validator = {
+  upload: [
+    check('file').notEmpty().withMessage("Invalid file")
+  ]
+}
+
+router.post('/', validator.upload, validateRequest, upload, (req, res) => {
   console.log(req.file);
   res.send({
     message: 'Image uploaded',
