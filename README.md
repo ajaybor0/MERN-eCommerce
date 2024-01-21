@@ -40,6 +40,7 @@ cd MERN-eCommerce
 
 3. Create a MongoDB database and obtain your MongoDB URI from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 4. Create a Razorpay account and obtain your Key ID and Key Secret from [Razorpay](https://razorpay.com/).
+5. Create a Brevo account and generate a new SMTP Key from [Brevo](https://www.brevo.com/)
 
 ### Env Variables
 
@@ -53,6 +54,11 @@ MONGO_URI=ADD_YOUR_MONGO_URI_HERE
 RAZORPAY_KEY_ID=ADD_YOUT_RAZORPAY_KEY_ID
 RAZORPAY_KEY_SECRET=ADD_YOUR_RAZORPAY_KEY_SECRET
 PAGINATION_MAX_LIMIT=12 # This will show 12 products per page; you can change it.
+EMAIL_HOST=smtp-relay.brevo.com
+EMAIL_PORT=587
+EMAIL_USER=ADD_YOUR_BREVO_LOGIN
+EMAIL_PASS=ADD_YOUR_BREVO_PASSWORD
+EMAIL_FROM=ADD_YOUR_BREVO_LOGIN
 ```
 
 ### Install Dependencies

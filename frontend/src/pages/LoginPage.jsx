@@ -80,14 +80,23 @@ const LoginPage = () => {
             </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='checkbox'>
-          <Form.Check
-            type='checkbox'
-            label='Keep me signed in.'
-            checked={remember}
-            onChange={() => setRemember(!remember)}
-          />
-        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group className='mb-3' controlId='checkbox'>
+              <Form.Check
+                type='checkbox'
+                label='Keep me signed in.'
+                checked={remember}
+                onChange={() => setRemember(!remember)}
+              />
+            </Form.Group>
+          </Col>
+          <Col className='text-end'>
+            <Link to={'/reset-password'} className=' mx-2'>
+              Forgot password?
+            </Link>
+          </Col>
+        </Row>
         <Button
           className='mb-3 w-100'
           variant='warning'

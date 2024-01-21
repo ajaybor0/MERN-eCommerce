@@ -26,6 +26,8 @@ import AdminLoginPage from '../pages/admin/AdminLoginPage';
 import Dashboard from '../pages/admin/Dashboard';
 import AdminProfilePage from '../pages/admin/AdminProfilePage';
 import AdminListPage from '../pages/admin/AdminListPage';
+import ResetPasswordRequestPage from '../pages/ResetPasswordRequestPage';
+import ResetPasswordPage from '../pages/ResetPasswordPage';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />
+      },
+      {
+        path: '/reset-password',
+        element: <ResetPasswordRequestPage />
+      },
+      {
+        path: '/reset-password/:id/:token',
+        element: <ResetPasswordPage />
       },
       {
         path: '/login',

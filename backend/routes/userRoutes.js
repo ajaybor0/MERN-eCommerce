@@ -9,7 +9,9 @@ import {
   deleteUser,
   updateUser,
   getUserById,
-  admins
+  admins,
+  resetPasswordRequest,
+  resetPassword
 } from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 import validateRequest from '../middleware/validator.js';
@@ -42,8 +44,10 @@ router.route('/')
   .get(protect, admin, getUsers);
 
 router.route('/admins').get(protect, admin, admins);
-router.post('/login', validator.checkLogin, validateRequest, loginUser);
 
+router.post('/reset-password/request', resetPasswordRequest);
+router.post('/reset-password/reset/:id/:token', resetPassword);
+router.post('/login', validator.checkLogin, validateRequest, loginUser);
 router.post('/logout', protect, logoutUser);
 
 router
