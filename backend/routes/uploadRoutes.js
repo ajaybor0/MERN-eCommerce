@@ -1,5 +1,4 @@
-import express from 'express';
-import { check } from 'express-validator';
+import express from 'express';import { body, check } from 'express-validator';
 import multer from 'multer';
 import validateRequest from '../middleware/validator.js';
 
@@ -15,7 +14,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (
+    if (
     file.mimetype === 'image/png' ||
     file.mimetype === 'image/jpg' ||
     file.mimetype === 'image/jpeg'
@@ -23,21 +22,17 @@ const fileFilter = (req, file, cb) => {
     // To accept the file pass `true`, like so:
     cb(null, true);
   } else {
-    // To reject this file pass `false`, like so:
+        // To reject this file pass `false`, like so:
     cb('Images only!');
   }
 };
 
 const upload = multer({ storage, fileFilter }).single('image');
 
-const validator = {
-  upload: [
-    check('file').notEmpty().withMessage("Invalid file")
-  ]
-}
+router.post('/', upload, (req, res) => {
+  if (!req.file)
+    throw res.status(400).json({error: 'No file uploaded'});
 
-router.post('/', validator.upload, validateRequest, upload, (req, res) => {
-  console.log(req.file);
   res.send({
     message: 'Image uploaded',
     imageUrl: `/${req.file.path}`
