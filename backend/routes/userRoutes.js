@@ -25,7 +25,8 @@ const validator = {
   ],
   checkNewUser: [
     body('email').trim().notEmpty().withMessage('Email is Required').bail().isEmail().withMessage("Please enter a valid email address"),
-    body('password').trim().isString().notEmpty().withMessage('Password is Empty'),
+    body('password').trim().isString().notEmpty().withMessage('Password is Empty').bail()
+      .isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
     body('name').trim().notEmpty().withMessage('Name is Required').escape()
   ],
   checkGetUserById: [
@@ -41,7 +42,8 @@ const validator = {
     body('email').trim().notEmpty().withMessage('Email is Required').bail().isEmail().withMessage("Please enter a valid email address")
   ],
   resetPassword: [
-    body('password').trim().notEmpty().withMessage('Password is Required').escape(),
+    body('password').trim().notEmpty().withMessage('Password is Required').escape().bail()
+      .isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
     param('id').exists().withMessage('Id is required').isMongoId().withMessage('Invalid Id'),
     param('token').trim().notEmpty().withMessage('Token is Required')
   ]
