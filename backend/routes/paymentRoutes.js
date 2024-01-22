@@ -9,7 +9,11 @@ const router = express.Router();
 
 const validator = {
     order: [
-        check('body').exists().withMessage('Request body is required')
+        body().custom(body => {
+            if (Object.keys(body).length === 0) 
+                throw new Error('Request Body is empty')
+            return true;
+        })
     ],
     validate: [
         body('razorpay_order_id')
