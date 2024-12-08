@@ -84,6 +84,26 @@ To run only the backend:
 ```bash
 npm run server
 ```
+# Docker for developement(optional)
+```
+docker-compose up --build
+```
+```
+docker-compose down
+```
+# Docker for production
+Modify docker-compose.yml
+
+Change the dockerfile line in the build section to Dockerfile.prod:
+
+```
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod  # Use the production Dockerfile
+    ...
+```
 
 ## Build & Deploy
 

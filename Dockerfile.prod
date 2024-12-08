@@ -1,0 +1,17 @@
+FROM node:lts-slim AS build
+
+WORKDIR /app
+
+COPY package*.json .
+RUN npm install
+COPY . .
+
+FROM node:lts-slim AS production
+
+WORKDIR /app
+
+COPY --from=build /app /app/
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "server" ]
