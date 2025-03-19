@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 const users = [
   {
     name: 'Admin User',
-    email: 'admin@admin.com',
+    email: 'jonsnow2025new@gmail.com',
     password: bcrypt.hashSync('admin123', 10),
     isAdmin: true
   },
