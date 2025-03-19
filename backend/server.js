@@ -3,7 +3,9 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import compression from 'compression';
-import 'dotenv/config';
+import 'dotenv/config'; // Ensure dotenv is loaded once
+
+import mongoose from 'mongoose'; // Change from require() to import
 
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -15,6 +17,9 @@ import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const port = process.env.PORT || 5000;
+
+// Log the MongoDB URI to verify it's being loaded correctly
+console.log('MONGO_URI:', process.env.MONGO_URI); // This should print the URI or 'undefined'
 
 // Connect to MongoDB
 connectDB();
@@ -35,11 +40,12 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/upload', uploadRoutes);
 app.use('/api/v1/payment', paymentRoutes);
+
 //-------------------------------------
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')));
 
-  //any app route that is not api will redirected to index.html
+  // Any app route that is not API will be redirected to index.html
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
