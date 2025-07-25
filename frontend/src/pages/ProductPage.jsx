@@ -45,10 +45,11 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const addToCartHandler = () => {
-    dispatch(addToCart({ ...product, qty }));
-    navigate('/cart');
-  };
+const addToCartHandler = () => {
+  dispatch(addToCart({ ...product, qty }));
+  toast.success('Product added to cart!');
+};
+
   const submitHandler = async e => {
     e.preventDefault();
     try {

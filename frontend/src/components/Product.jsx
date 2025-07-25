@@ -5,16 +5,19 @@ import { useDispatch } from 'react-redux';
 import { addCurrency } from '../utils/addCurrency';
 import { addToCart } from '../slices/cartSlice';
 import Rating from './Rating';
-
+import { toast } from 'react-toastify';
 const Product = ({ product }) => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const addToCartHandler = () => {
-    dispatch(addToCart({ ...product, qty }));
-    navigate('/cart');
-  };
+
+
+const addToCartHandler = () => {
+  dispatch(addToCart({ ...product, qty }));
+  toast.success('Added to cart!');
+};
+
   return (
     <Card className='my-3 p-3 rounded text-center'>
       <Link
