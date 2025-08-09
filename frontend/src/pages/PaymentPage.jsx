@@ -7,12 +7,15 @@ import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Meta from '../components/Meta';
 const Payment = () => {
-  const [paymentMethod, setPaymentMethod] = useState('Razorpay');
+  const { shippingAddress, paymentMethod: savedPaymentMethod } = useSelector(
+    state => state.cart
+  );
+  const [paymentMethod, setPaymentMethod] = useState(
+    savedPaymentMethod || 'Razorpay'
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { shippingAddress } = useSelector(state => state.cart);
 
   useEffect(() => {
     if (!shippingAddress) {
@@ -41,7 +44,17 @@ const Payment = () => {
               label='Razorpay'
               name='paymentMethod'
               value='Razorpay'
-              checked
+              checked={paymentMethod === 'Razorpay'}
+              onChange={e => setPaymentMethod(e.target.value)}
+            ></Form.Check>
+            <Form.Check
+              className='my-2'
+              type='radio'
+              id='COD'
+              label='Cash on Delivery (COD)'
+              name='paymentMethod'
+              value='COD'
+              checked={paymentMethod === 'COD'}
               onChange={e => setPaymentMethod(e.target.value)}
             ></Form.Check>
           </Col>

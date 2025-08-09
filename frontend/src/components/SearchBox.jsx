@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Form,
   Button,
@@ -19,6 +19,17 @@ function SearchBox() {
     e.preventDefault();
     dispatch(searchProduct(input));
   };
+
+  // Debounce typing to avoid firing a request on every keystroke
+  const debouncedValue = useMemo(() => input, [input]);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      dispatch(searchProduct(debouncedValue));
+    }, 400);
+
+    return () => clearTimeout(handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue, dispatch]);
 
   const clearSearchHandler = () => {
     dispatch(clearSearch());

@@ -109,6 +109,21 @@ const OrderDetailsPage = () => {
     }
   };
 
+  const markAsPaidHandler = async () => {
+    try {
+      const details = {
+        id: 'COD',
+        status: 'success',
+        updateTime: new Date().toISOString(),
+        email: order?.user?.email
+      };
+      await payOrder({ orderId, details });
+      toast.success('Order marked as paid');
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -224,7 +239,9 @@ const OrderDetailsPage = () => {
                       <Col>{addCurrency(order?.totalPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
-                  {!order?.isPaid && !userInfo.isAdmin && (
+                  {!order?.isPaid &&
+                    !userInfo.isAdmin &&
+                    order?.paymentMethod !== 'COD' && (
                     <ListGroup.Item>
                       <Button
                         className='w-100'
@@ -237,6 +254,28 @@ const OrderDetailsPage = () => {
                       </Button>
                     </ListGroup.Item>
                   )}
+                  {!order?.isPaid &&
+                    !userInfo.isAdmin &&
+                    order?.paymentMethod === 'COD' && (
+                      <ListGroup.Item>
+                        <div className='text-muted'>Pay on Delivery</div>
+                      </ListGroup.Item>
+                    )}
+                  {userInfo &&
+                    userInfo.isAdmin &&
+                    !order?.isPaid &&
+                    order?.paymentMethod === 'COD' && (
+                      <ListGroup.Item>
+                        <Button
+                          onClick={markAsPaidHandler}
+                          variant='success'
+                          disabled={isPayOrderLoading}
+                          style={{ marginBottom: '10px' }}
+                        >
+                          Mark As Paid
+                        </Button>
+                      </ListGroup.Item>
+                    )}
                   {userInfo &&
                     userInfo.isAdmin &&
                     order?.isPaid &&

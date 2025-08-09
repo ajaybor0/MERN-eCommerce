@@ -16,24 +16,26 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [total, setTotal] = useState(0);
-  const [limit, setLimit] = useState(0);
+  const [limit, setLimit] = useState(4);
   const [skip, setSkip] = useState(0);
   const { search } = useSelector(state => state.search);
 
-  const { data, isLoading, error } = useGetProductsQuery({
-    limit,
-    skip,
-    search
-  });
+  const { data, isLoading, error } = useGetProductsQuery({ limit, skip, search });
 
+  // Reset to first page on search change
   useEffect(() => {
+    setCurrentPage(1);
+    setSkip(0);
+  }, [search]);
+
+  // Update derived pagination values when data or page changes
+  useEffect(() => {
+    setSkip((currentPage - 1) * limit);
     if (data) {
-      setLimit(4);
-      setSkip((currentPage - 1) * limit);
-      setTotal(data.total);
-      setTotalPage(Math.ceil(total / limit));
+      setTotal(data.total || 0);
+      setTotalPage(Math.ceil((data.total || 0) / limit));
     }
-  }, [currentPage, data, limit, total, search]);
+  }, [currentPage, data, limit]);
 
   const pageHandler = pageNum => {
     if (pageNum >= 1 && pageNum <= totalPage && pageNum !== currentPage) {

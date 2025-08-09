@@ -7,29 +7,50 @@ import { deleteFile } from '../utils/file.js';
 // @access   Public
 const getProducts = async (req, res, next) => {
   try {
-    const total = await Product.countDocuments();
-    const maxLimit = process.env.PAGINATION_MAX_LIMIT;
-    const maxSkip = total === 0 ? 0 : total - 1;
-    const limit = Number(req.query.limit) || maxLimit;
-    const skip = Number(req.query.skip) || 0;
-    const search = req.query.search || '';
+    const rawSearch = (req.query.search || '').toString().trim();
 
-    const products = await Product.find({
-      name: { $regex: search, $options: 'i' }
-    })
-      .limit(limit > maxLimit ? maxLimit : limit)
-      .skip(skip > maxSkip ? maxSkip : skip < 0 ? 0 : skip);
+    // Escape special regex characters in user input to avoid ReDoS or unintended patterns
+    const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const safeSearch = escapeRegExp(rawSearch);
 
-    if (!products || products.length === 0) {
-      res.statusCode = 404;
-      throw new Error('Products not found!');
-    }
+    const filter = rawSearch
+      ? {
+          $or: [
+            { name: { $regex: safeSearch, $options: 'i' } },
+            { brand: { $regex: safeSearch, $options: 'i' } },
+            { category: { $regex: safeSearch, $options: 'i' } },
+            { description: { $regex: safeSearch, $options: 'i' } }
+          ]
+        }
+      : {};
+
+    const envMaxLimit = Number(process.env.PAGINATION_MAX_LIMIT) || 20;
+
+    const requestedLimit = Number(req.query.limit);
+    const limit = Number.isFinite(requestedLimit) && requestedLimit > 0
+      ? Math.min(requestedLimit, envMaxLimit)
+      : envMaxLimit;
+
+    const filteredTotal = await Product.countDocuments(filter);
+    const maxSkip = filteredTotal === 0 ? 0 : filteredTotal - 1;
+
+    const requestedSkip = Number(req.query.skip);
+    let skip = Number.isFinite(requestedSkip) && requestedSkip >= 0 ? requestedSkip : 0;
+    if (skip > maxSkip) skip = maxSkip;
+
+    const products = await Product.find(filter)
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip(skip);
 
     res.status(200).json({
       products,
-      total,
-      maxLimit,
-      maxSkip
+      total: filteredTotal,
+      limit,
+      skip,
+      maxLimit: envMaxLimit,
+      maxSkip,
+      hasMore: skip + products.length < filteredTotal
     });
   } catch (error) {
     next(error);

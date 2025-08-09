@@ -92,6 +92,21 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Create text indexes to improve search across common fields
+// Note: This does not change behavior by itself, but enables fast $text queries if used
+productSchema.index(
+  {
+    name: 'text',
+    brand: 'text',
+    category: 'text',
+    description: 'text'
+  },
+  {
+    weights: { name: 10, brand: 5, category: 3, description: 2 },
+    name: 'ProductTextIndex'
+  }
+);
+
 // Create the Product model
 const Product = mongoose.model('Product', productSchema);
 

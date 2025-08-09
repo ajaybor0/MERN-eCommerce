@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  search: ''
+  search: '',
+  lastUpdatedAt: 0
 };
 
 export const searchProductSlice = createSlice({
@@ -10,9 +11,11 @@ export const searchProductSlice = createSlice({
   reducers: {
     searchProduct: (state, action) => {
       state.search = action.payload;
+      state.lastUpdatedAt = Date.now();
     },
     clearSearch: state => {
       state.search = '';
+      state.lastUpdatedAt = Date.now();
     }
   }
 });
